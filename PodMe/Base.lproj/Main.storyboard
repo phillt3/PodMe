@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -33,7 +34,7 @@
             <objects>
                 <viewController id="4Jg-Mc-0ti" customClass="PodListViewController" customModule="PodMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="km0-gG-egC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="PI4-l4-hF3">
@@ -104,6 +105,19 @@
                             <constraint firstItem="PI4-l4-hF3" firstAttribute="top" secondItem="XSa-ma-3Pb" secondAttribute="top" id="hxv-Zv-2Iy"/>
                         </constraints>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem style="plain" id="2jN-MD-5yd">
+                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="2Rx-kv-Svt">
+                                <rect key="frame" x="20" y="10.5" width="374" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" name="PrimaryColor"/>
+                                <segments>
+                                    <segment title="Most Recent"/>
+                                    <segment title="Most Comments"/>
+                                </segments>
+                            </segmentedControl>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="xV0-Fw-F2K">
                         <barButtonItem key="leftBarButtonItem" title="Sign Out" id="bVf-bk-iww">
                             <connections>
@@ -116,7 +130,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="sortSegmentedControl" destination="2Rx-kv-Svt" id="cCT-bC-BhY"/>
                         <outlet property="tableView" destination="PI4-l4-hF3" id="GCK-FB-r5p"/>
                     </connections>
                 </viewController>
@@ -130,7 +146,7 @@
             <objects>
                 <viewController id="Ri8-E5-6wN" customClass="PodDetailViewController" customModule="PodMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SW5-bi-Xoa">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cbS-XB-arU">
@@ -211,6 +227,14 @@
                             <constraint firstItem="cbS-XB-arU" firstAttribute="leading" secondItem="ZrU-zh-OfM" secondAttribute="leading" id="AN1-Kb-6sO"/>
                         </constraints>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="2QH-RP-GQr">
+                            <color key="tintColor" name="PrimaryColor"/>
+                        </barButtonItem>
+                        <barButtonItem title="Add Comment" id="AM4-En-j55">
+                            <color key="tintColor" name="PrimaryColor"/>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="ikF-po-HVG">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="CEA-oc-hAS">
                             <connections>
@@ -219,6 +243,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="TnG-HF-biC"/>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="authorTextField" destination="aMC-py-aTB" id="qTs-Je-Uha"/>
                         <outlet property="descriptionTextField" destination="0Vu-BQ-PVx" id="DPj-AC-M7r"/>
@@ -241,6 +266,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bkf-Ni-TpB">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="PrimaryColor"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="X5x-ah-jYm">
@@ -264,6 +290,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xrJ-yn-hzC">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="PrimaryColor"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="osQ-ez-56h">
@@ -280,10 +307,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mlX-BH-l6N"/>
+        <segue reference="Q8Z-eu-Whs"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="play.circle.fill" catalog="system" width="128" height="121"/>
+        <namedColor name="PrimaryColor">
+            <color red="0.25883054733276367" green="0.58074283599853516" blue="0.96993559598922729" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

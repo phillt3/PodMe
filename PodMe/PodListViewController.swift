@@ -11,6 +11,9 @@ class PodListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var sortSegmentedControl: UISegmentedControl!
+    
+    
     var pods = ["Get Rich or Die Crying", "How to Lose Money", "Jeff Bezos, We Love You", "First Tik Toker in Space", "Twitch Got Hacked", "Can Drinking 4 Redbulls a Day Lead to Better Thumbnails?"]
 
     override func viewDidLoad() {
@@ -19,6 +22,8 @@ class PodListViewController: UIViewController {
         tableView.dataSource = self
 
     }
+    
+    
     
 }
 
