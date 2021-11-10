@@ -179,23 +179,23 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZiK-k9-kxn">
-                                        <rect key="frame" x="185" y="98" width="44" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain">
-                                            <imageReference key="image" image="play.circle.fill" catalog="system" symbolScale="large"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="default"/>
-                                        </buttonConfiguration>
-                                    </button>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="zfB-oN-sJT">
-                                        <rect key="frame" x="22" y="145" width="370" height="31"/>
+                                        <rect key="frame" x="22" y="175.5" width="370" height="31"/>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ldp-Kr-cM1">
-                                        <rect key="frame" x="184" y="185" width="46" height="21"/>
+                                        <rect key="frame" x="184" y="215.5" width="46" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZiK-k9-kxn">
+                                        <rect key="frame" x="166" y="98" width="82" height="61.5"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain">
+                                            <imageReference key="image" image="play.circle.fill" catalog="system" symbolScale="large"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="40" scale="default"/>
+                                        </buttonConfiguration>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -241,7 +241,11 @@
                                 <action selector="cancelButtonPressed:" destination="Ri8-E5-6wN" id="EbI-MJ-X1g"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="TnG-HF-biC"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="TnG-HF-biC">
+                            <connections>
+                                <action selector="saveButtonPressed:" destination="Ri8-E5-6wN" id="FBO-aW-KJ8"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -312,7 +316,7 @@
     <resources>
         <image name="play.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="PrimaryColor">
-            <color red="0.25883054733276367" green="0.58074283599853516" blue="0.96993559598922729" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.25900000333786011" green="0.58099997043609619" blue="0.97000002861022949" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
