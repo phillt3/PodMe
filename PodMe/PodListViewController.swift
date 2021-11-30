@@ -41,6 +41,10 @@ class PodListViewController: UIViewController {
         }
     }
     
+    @IBAction func usersButtonPressed(_ sender: UIBarButtonItem) {
+    }
+    
+    
 }
 
 extension PodListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -50,7 +54,8 @@ extension PodListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PodTableViewCell
-        cell.titleLabel?.text = pods.podArray[indexPath.row].title
+        //cell.titleLabel?.text = pods.podArray[indexPath.row].title
+        cell.pod = pods.podArray[indexPath.row]
         return cell
     }
     

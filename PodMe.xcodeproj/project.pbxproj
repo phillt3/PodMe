@@ -8,8 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		6C01B8ACA5D8F61AEBBC3404 /* Pods_PodMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D75AC593EA36A55E8586ED /* Pods_PodMe.framework */; };
+		A41FBB532756982D003FBF27 /* UIBarButtonItem+hide.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41FBB522756982D003FBF27 /* UIBarButtonItem+hide.swift */; };
 		A43753362755B40800A8C91A /* Pods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43753352755B40800A8C91A /* Pods.swift */; };
 		A43753382755C16B00A8C91A /* PodUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43753372755C16A00A8C91A /* PodUser.swift */; };
+		A437533A2755EA9C00A8C91A /* PodUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43753392755EA9B00A8C91A /* PodUserViewController.swift */; };
+		A437533C2755EABC00A8C91A /* PodUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A437533B2755EABC00A8C91A /* PodUserTableViewCell.swift */; };
+		A437533E2755EC2700A8C91A /* PodUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A437533D2755EC2700A8C91A /* PodUsers.swift */; };
 		A4720FB6273C715100BC91A8 /* Pod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4720FB5273C715100BC91A8 /* Pod.swift */; };
 		A4720FB8273C7CC900BC91A8 /* UIViewController+alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4720FB7273C7CC900BC91A8 /* UIViewController+alert.swift */; };
 		A4BF75D5273450EA002AEF03 /* PodListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BF75D4273450EA002AEF03 /* PodListViewController.swift */; };
@@ -28,8 +32,12 @@
 		04EAFF926C0128D187C2B021 /* Pods-PodMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodMe.release.xcconfig"; path = "Target Support Files/Pods-PodMe/Pods-PodMe.release.xcconfig"; sourceTree = "<group>"; };
 		59D75AC593EA36A55E8586ED /* Pods_PodMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PodMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F9CF5C706F62F80884F232C /* Pods-PodMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodMe.debug.xcconfig"; path = "Target Support Files/Pods-PodMe/Pods-PodMe.debug.xcconfig"; sourceTree = "<group>"; };
+		A41FBB522756982D003FBF27 /* UIBarButtonItem+hide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+hide.swift"; sourceTree = "<group>"; };
 		A43753352755B40800A8C91A /* Pods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pods.swift; sourceTree = "<group>"; };
 		A43753372755C16A00A8C91A /* PodUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodUser.swift; sourceTree = "<group>"; };
+		A43753392755EA9B00A8C91A /* PodUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodUserViewController.swift; sourceTree = "<group>"; };
+		A437533B2755EABC00A8C91A /* PodUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodUserTableViewCell.swift; sourceTree = "<group>"; };
+		A437533D2755EC2700A8C91A /* PodUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodUsers.swift; sourceTree = "<group>"; };
 		A4720FB5273C715100BC91A8 /* Pod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pod.swift; sourceTree = "<group>"; };
 		A4720FB7273C7CC900BC91A8 /* UIViewController+alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+alert.swift"; sourceTree = "<group>"; };
 		A4BF75D4273450EA002AEF03 /* PodListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodListViewController.swift; sourceTree = "<group>"; };
@@ -84,11 +92,15 @@
 				A4720FB5273C715100BC91A8 /* Pod.swift */,
 				A43753352755B40800A8C91A /* Pods.swift */,
 				A43753372755C16A00A8C91A /* PodUser.swift */,
+				A437533D2755EC2700A8C91A /* PodUsers.swift */,
 				A4DC1883272F6DDF0086DACB /* LoginViewController.swift */,
 				A4BF75D4273450EA002AEF03 /* PodListViewController.swift */,
 				A4BF75D62734545B002AEF03 /* PodTableViewCell.swift */,
 				A4BF75D827349F38002AEF03 /* PodDetailViewController.swift */,
+				A43753392755EA9B00A8C91A /* PodUserViewController.swift */,
+				A437533B2755EABC00A8C91A /* PodUserTableViewCell.swift */,
 				A4720FB7273C7CC900BC91A8 /* UIViewController+alert.swift */,
+				A41FBB522756982D003FBF27 /* UIBarButtonItem+hide.swift */,
 				A4DC1885272F6DDF0086DACB /* Main.storyboard */,
 				A4DC1888272F6DE00086DACB /* Assets.xcassets */,
 				A4DC188A272F6DE00086DACB /* LaunchScreen.storyboard */,
@@ -249,11 +261,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A437533E2755EC2700A8C91A /* PodUsers.swift in Sources */,
 				A4BF75D5273450EA002AEF03 /* PodListViewController.swift in Sources */,
 				A4DC1884272F6DDF0086DACB /* LoginViewController.swift in Sources */,
+				A437533C2755EABC00A8C91A /* PodUserTableViewCell.swift in Sources */,
+				A41FBB532756982D003FBF27 /* UIBarButtonItem+hide.swift in Sources */,
 				A4720FB6273C715100BC91A8 /* Pod.swift in Sources */,
 				A4DC1880272F6DDF0086DACB /* AppDelegate.swift in Sources */,
 				A43753362755B40800A8C91A /* Pods.swift in Sources */,
+				A437533A2755EA9C00A8C91A /* PodUserViewController.swift in Sources */,
 				A4DC1882272F6DDF0086DACB /* SceneDelegate.swift in Sources */,
 				A4BF75D72734545B002AEF03 /* PodTableViewCell.swift in Sources */,
 				A4BF75D927349F38002AEF03 /* PodDetailViewController.swift in Sources */,

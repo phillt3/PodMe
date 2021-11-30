@@ -14,23 +14,25 @@ class Pod {
     var description: String
     var numberOfComments: Int
     var documentID: String
+    var displayName: String
     //TODO: implement separate class/struct or elements of audio post itself
     //this includes the length of the post and the audio file
     
     var dictionary: [String: Any] {
-        return ["title": title, "postingUserID": postingUserID, "description" : description, "numberOfComments": numberOfComments]
+        return ["title": title, "postingUserID": postingUserID, "description" : description, "numberOfComments": numberOfComments, "displayName" : displayName]
     }
     
-    init(title: String, postingUserID: String, description: String, numberOfComments: Int, documentID: String){
+    init(title: String, postingUserID: String, description: String, numberOfComments: Int, documentID: String, displayName: String){
         self.title = title
         self.postingUserID = postingUserID
         self.description = description
         self.numberOfComments = numberOfComments
         self.documentID = documentID
+        self.displayName = displayName
     }
     
     convenience init() {
-        self.init(title: "", postingUserID: "", description: "", numberOfComments: 0, documentID: "")
+        self.init(title: "", postingUserID: "", description: "", numberOfComments: 0, documentID: "", displayName: "")
     }
     
     convenience init(dictionary: [String: Any]){
@@ -38,7 +40,8 @@ class Pod {
         let postingUserID = dictionary["postingUserID"] as! String? ?? ""
         let description  = dictionary["description"] as! String? ?? ""
         let numberOfComments = dictionary["numberOfComments"] as! Int? ?? 0
-        self.init(title: title, postingUserID: postingUserID, description: description, numberOfComments: numberOfComments, documentID: "")
+        let displayName = dictionary["displayName"] as! String? ?? ""
+        self.init(title: title, postingUserID: postingUserID, description: description, numberOfComments: numberOfComments, documentID: "", displayName: displayName)
     }
     
     func saveData(completion: @escaping (Bool) -> ()) {
@@ -48,6 +51,7 @@ class Pod {
             print("ERROR: Could not save data because we don't have a valid postingUserID.")
             return completion(false)
         }
+        self.displayName = Auth.auth().currentUser?.displayName ?? ""
         self.postingUserID = postingUserID
         //create dicitonary representing data we want to save
         let dataToSave: [String: Any] = self.dictionary

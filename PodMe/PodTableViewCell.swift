@@ -15,5 +15,12 @@ class PodTableViewCell: UITableViewCell {
     
     @IBOutlet weak var lengthLabel: UILabel!
     
+    var pod: Pod! {
+        didSet {
+            titleLabel.text = pod.title
+            authorLabel.text = pod.displayName
+        }
+    }
+    
     
 }

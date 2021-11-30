@@ -10,32 +10,35 @@ import UIKit
 class PodDetailViewController: UIViewController {
     
     @IBOutlet weak var titleTextField: UITextField!
-    
     @IBOutlet weak var authorTextField: UITextField!
-    
     @IBOutlet weak var lengthLabel: UILabel!
-    
-    
     @IBOutlet weak var descriptionTextField: UITextView!
-    
     @IBOutlet weak var playbutton: UIButton!
-    
     @IBOutlet weak var timeSlider: UISlider!
     
+    @IBOutlet weak var cancelBarButton: UIBarButtonItem!
+    @IBOutlet weak var saveBarButton: UIBarButtonItem!
+    
     var pod: Pod!
+    var uploading = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if pod == nil {
             pod = Pod()
+            uploading = true
+        } else {
+            disableTextEditing()
+            saveBarButton.hide()
+            uploading = false
         }
         updateUserInterface()
         
     }
     func updateUserInterface() {
         titleTextField.text = pod.title
-        authorTextField.text = pod.postingUserID
+        authorTextField.text = pod.displayName
         descriptionTextField.text = pod.description
     }
     
@@ -51,6 +54,11 @@ class PodDetailViewController: UIViewController {
         } else {
             navigationController?.popViewController(animated: true)
         }
+    }
+    
+    func disableTextEditing(){
+        titleTextField.isEnabled = false
+        descriptionTextField.isEditable = false
     }
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
@@ -69,4 +77,12 @@ class PodDetailViewController: UIViewController {
         leaveViewController()
     }
     
+    @IBAction func playButtonPressed(_ sender: UIButton) {
+        if uploading {
+            playbutton.tintColor = .red
+            playbutton.setImage(UIImage(systemName: "pause.circle.fill"), for: .normal)
+        } else {
+            print("Else")
+        }
+    }
 }
