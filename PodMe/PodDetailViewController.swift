@@ -21,10 +21,13 @@ class PodDetailViewController: UIViewController {
     
     var pod: Pod!
     var uploading = false
+    var isPlaying = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        playbutton.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
+        playbutton.tintColor = UIColor(named: "PrimaryColor")
         if pod == nil {
             pod = Pod()
             uploading = true
@@ -72,17 +75,29 @@ class PodDetailViewController: UIViewController {
         }
     }
     
-    
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         leaveViewController()
     }
     
     @IBAction func playButtonPressed(_ sender: UIButton) {
         if uploading {
-            playbutton.tintColor = .red
-            playbutton.setImage(UIImage(systemName: "pause.circle.fill"), for: .normal)
+            if isPlaying {
+                playbutton.tintColor = UIColor(named: "PrimaryColor")
+                playbutton.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
+                isPlaying = false
+            } else {
+                playbutton.tintColor = .red
+                playbutton.setImage(UIImage(systemName: "pause.circle.fill"), for: .normal)
+                isPlaying = true
+            }
         } else {
-            print("Else")
+            if isPlaying {
+                playbutton.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
+                isPlaying = false
+            } else {
+                playbutton.setImage(UIImage(systemName: "pause.circle.fill"), for: .normal)
+                isPlaying = true
+            }
         }
     }
 }
