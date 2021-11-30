@@ -33,6 +33,14 @@ class Pod {
         self.init(title: "", postingUserID: "", description: "", numberOfComments: 0, documentID: "")
     }
     
+    convenience init(dictionary: [String: Any]){
+        let title = dictionary["title"] as! String? ?? ""
+        let postingUserID = dictionary["postingUserID"] as! String? ?? ""
+        let description  = dictionary["description"] as! String? ?? ""
+        let numberOfComments = dictionary["numberOfComments"] as! Int? ?? 0
+        self.init(title: title, postingUserID: postingUserID, description: description, numberOfComments: numberOfComments, documentID: "")
+    }
+    
     func saveData(completion: @escaping (Bool) -> ()) {
         let db = Firestore.firestore()
         //Grab the userID
