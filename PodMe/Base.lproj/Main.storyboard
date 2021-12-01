@@ -319,6 +319,15 @@
                                             <action selector="playButtonPressed:" destination="Ri8-E5-6wN" eventType="touchUpInside" id="Asm-8o-jt0"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q9G-q1-GU9">
+                                        <rect key="frame" x="256" y="113" width="67" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <connections>
+                                            <action selector="testButtonPressed:" destination="Ri8-E5-6wN" eventType="touchUpInside" id="Jpg-ji-GUo"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>

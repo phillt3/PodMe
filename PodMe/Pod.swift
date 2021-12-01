@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import AVFoundation
 
 class Pod {
     var title: String
@@ -15,24 +16,29 @@ class Pod {
     var numberOfComments: Int
     var documentID: String
     var displayName: String
+    var audioFileName : String
+    var audioURL : String
+    
     //TODO: implement separate class/struct or elements of audio post itself
     //this includes the length of the post and the audio file
     
     var dictionary: [String: Any] {
-        return ["title": title, "postingUserID": postingUserID, "description" : description, "numberOfComments": numberOfComments, "displayName" : displayName]
+        return ["title": title, "postingUserID": postingUserID, "description" : description, "numberOfComments": numberOfComments, "displayName" : displayName, "audioFileName" : audioFileName, "audioURL" : audioURL]
     }
     
-    init(title: String, postingUserID: String, description: String, numberOfComments: Int, documentID: String, displayName: String){
+    init(title: String, postingUserID: String, description: String, numberOfComments: Int, documentID: String, displayName: String, audioFileName: String, audioURL : String){
         self.title = title
         self.postingUserID = postingUserID
         self.description = description
         self.numberOfComments = numberOfComments
         self.documentID = documentID
         self.displayName = displayName
+        self.audioFileName = audioFileName
+        self.audioURL = audioURL
     }
     
     convenience init() {
-        self.init(title: "", postingUserID: "", description: "", numberOfComments: 0, documentID: "", displayName: "")
+        self.init(title: "", postingUserID: "", description: "", numberOfComments: 0, documentID: "", displayName: "", audioFileName: "", audioURL : "")
     }
     
     convenience init(dictionary: [String: Any]){
@@ -41,11 +47,21 @@ class Pod {
         let description  = dictionary["description"] as! String? ?? ""
         let numberOfComments = dictionary["numberOfComments"] as! Int? ?? 0
         let displayName = dictionary["displayName"] as! String? ?? ""
-        self.init(title: title, postingUserID: postingUserID, description: description, numberOfComments: numberOfComments, documentID: "", displayName: displayName)
+        let audioFileName = dictionary["displayName"] as! String? ?? ""
+        let audioURL = dictionary["audioURL"] as! String? ?? ""
+        self.init(title: title, postingUserID: postingUserID, description: description, numberOfComments: numberOfComments, documentID: "", displayName: displayName, audioFileName : audioFileName, audioURL : audioURL)
+    }
+    
+    func getDirectory() -> URL
+    {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentDirectory = paths[0]
+        return documentDirectory
     }
     
     func saveData(completion: @escaping (Bool) -> ()) {
         let db = Firestore.firestore()
+        //getDirectory().appendingPathComponent("\(pod.documentID).m4a")
         //Grab the userID
         guard let postingUserID = Auth.auth().currentUser?.uid else {
             print("ERROR: Could not save data because we don't have a valid postingUserID.")
@@ -65,6 +81,7 @@ class Pod {
                 }
                 self.documentID = ref!.documentID
                 print("Added document: \(self.documentID)") //it worked
+                self.saveAudio()
                 completion(true)
             }
         } else { //esle save to the existing documentiD w/.setDaata
@@ -75,9 +92,36 @@ class Pod {
                     return completion(false)
                 }
                 print("Updated document: \(self.documentID)") //it worked
+                self.saveAudio()
                 completion(true)
             }
         }
     }
     
+    func saveAudio() {
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        let audioFile = getDocumentsDirectory().appendingPathComponent(audioFileName)
+        print(audioFileName)
+        print(audioFile)
+        let audioRef = storageRef.child(documentID)
+        print(audioRef)
+        
+        let uploadTask = audioRef.putFile(from: audioFile)
+        
+        audioRef.downloadURL { (url, error) in
+            guard let downloadURL = url else {
+                print("ERROR occurred while saving downloadURL")
+                return
+            }
+            self.audioURL = "\(downloadURL)"
+        }
+        
+    }
+    
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
 }
