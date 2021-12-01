@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import AVFoundation
 
-class PodDetailViewController: UIViewController {
+class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDelegate{
     
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var authorTextField: UITextField!
@@ -23,8 +24,27 @@ class PodDetailViewController: UIViewController {
     var uploading = false
     var isPlaying = false
     
+    var file : Int = 0
+    var AudioPlayer : AVAudioPlayer!
+    var AudioSession : AVAudioSession!
+    var AudioRecorder : AVAudioRecorder!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        AudioSession = AVAudioSession.sharedInstance()
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: [])
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print("ERROR: \(error.localizedDescription)")
+        }
+        AVAudioSession.sharedInstance().requestRecordPermission { (hasPermission) in
+            if hasPermission
+            {
+                print("Permission has been granted")
+            }
+        }
         
         playbutton.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
         playbutton.tintColor = UIColor(named: "PrimaryColor")
@@ -39,6 +59,8 @@ class PodDetailViewController: UIViewController {
         updateUserInterface()
         
     }
+    
+    
     func updateUserInterface() {
         titleTextField.text = pod.title
         authorTextField.text = pod.displayName
@@ -62,6 +84,7 @@ class PodDetailViewController: UIViewController {
     func disableTextEditing(){
         titleTextField.isEnabled = false
         descriptionTextField.isEditable = false
+        
     }
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
