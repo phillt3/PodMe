@@ -82,7 +82,7 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     
     @objc func playBackTimerCounter() -> Void {
         tempCount = tempCount + 1
-        if tempCount == pod.seconds{
+        if tempCount == comment.seconds{
             playBackTimer.invalidate()
         }
         commentSlider.setValue((Float(tempCount)), animated: true)
@@ -248,9 +248,11 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
             if audioRecorder == nil {
                 print("RECORDING")
                 startRecording()
+                saveBarButton.isEnabled = false
             } else {
                 print("RECORDING STOPPED")
                 finishRecording(success: true)
+                saveBarButton.isEnabled = true
             }
         } else {
             print("Here we are...")

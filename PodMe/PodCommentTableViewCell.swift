@@ -15,8 +15,9 @@ class PodCommentTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
     @IBOutlet weak var lengthLabel: UILabel!
     @IBOutlet weak var commentPlayButton: UIButton!
     
-    var AudioPlayer: AVAudioPlayer?
     
+    var AudioPlayer: AVAudioPlayer?
+    var pod: Pod!
     var comment: Comment! {
         didSet {
             commentTitleLabel.text = comment.commentTitle
@@ -24,6 +25,7 @@ class PodCommentTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
             lengthLabel.text = comment.timeString
         }
     }
+
     
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -43,7 +45,15 @@ class PodCommentTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
         } else {
             //set up player, and play
             commentPlayButton.setImage(UIImage(systemName: "pause.circle.fill"), for: .normal)
-            let path = getDocumentsDirectory().appendingPathComponent(comment.audioFileName)
+            var path = getDocumentsDirectory().appendingPathComponent(comment.audioFileName)
+            comment.loadAudio(pod : pod) { (success) in
+                if success {
+                    path = URL(string: self.comment.audioURL)!
+                    print("Using loaded audio with path \(path)")
+                } else{
+                    print("ERROR: could not load audio for \(self.comment.audioURL), using local path")
+                }
+            }
             do {
                 try AVAudioSession.sharedInstance().setMode(.default)
                 try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)

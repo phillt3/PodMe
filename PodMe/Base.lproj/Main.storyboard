@@ -53,7 +53,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="27.5" id="CAn-e8-giN"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -116,12 +116,15 @@
                                     <segment title="Longest"/>
                                     <segment title="Most Comments"/>
                                 </segments>
+                                <connections>
+                                    <action selector="sortSegmentPressed:" destination="4Jg-Mc-0ti" eventType="valueChanged" id="iS1-vg-UzT"/>
+                                </connections>
                             </segmentedControl>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="xV0-Fw-F2K">
                         <barButtonItem key="leftBarButtonItem" title="Sign Out" id="bVf-bk-iww">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <segue destination="Zma-T4-h6o" kind="unwind" identifier="SignOutUnwind" animates="NO" unwindAction="unwindSignOutPressedWithSegue:" id="Tde-Hp-Yzx"/>
                             </connections>
@@ -272,7 +275,7 @@
                                     <subviews>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Podcast #1: This where the the Title is!" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Id4-6g-LjW">
                                             <rect key="frame" x="8" y="8" width="359" height="33"/>
-                                            <color key="backgroundColor" name="ViewBackgrounds"/>
+                                            <color key="backgroundColor" systemColor="systemGray2Color"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="33" id="GgB-mS-URz"/>
                                             </constraints>
@@ -282,7 +285,7 @@
                                         </textField>
                                         <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Author Name" borderStyle="roundedRect" placeholder="Name is saved here" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aMC-py-aTB">
                                             <rect key="frame" x="8" y="43" width="359" height="17"/>
-                                            <color key="backgroundColor" name="ViewBackgrounds"/>
+                                            <color key="backgroundColor" systemColor="systemGray2Color"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="17" id="ELu-BF-Erg"/>
                                             </constraints>
@@ -460,7 +463,7 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="ikF-po-HVG">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="CEA-oc-hAS">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="cancelButtonPressed:" destination="Ri8-E5-6wN" id="EbI-MJ-X1g"/>
                             </connections>
@@ -716,6 +719,9 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

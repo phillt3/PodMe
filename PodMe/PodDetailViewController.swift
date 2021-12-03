@@ -114,6 +114,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
         pod.title = titleTextField.text!
         pod.description = descriptionTextField.text!
         pod.timeString = lengthLabel.text!
+        pod.numberOfComments = comments.commentArray.count
     }
     
     func leaveViewController() {
@@ -294,6 +295,8 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
         present(alertController, animated: true, completion: nil)
     }
     
+
+    
     
     @IBAction func addCommentButtonPressed(_ sender: UIBarButtonItem) {
         if pod.documentID == "" {
@@ -338,9 +341,11 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
             if audioRecorder == nil {
                 print("RECORDING")
                 startRecording()
+                saveBarButton.isEnabled = false
             } else {
                 print("RECORDING STOPPED")
                 finishRecording(success: true)
+                saveBarButton.isEnabled = true
             }
         } else {
             if let AudioPlayer = AudioPlayer, AudioPlayer.isPlaying {
@@ -389,6 +394,7 @@ extension PodDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! PodCommentTableViewCell
         cell.comment = comments.commentArray[indexPath.row]
+        cell.pod = pod
         //update
         //TODO: deal with custom cell
         return cell

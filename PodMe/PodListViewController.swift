@@ -29,6 +29,7 @@ class PodListViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         pods.loadData {
+            self.sortBasedOnSegmentPressed()
             self.tableView.reloadData()
         }
     }
@@ -44,6 +45,23 @@ class PodListViewController: UIViewController {
     @IBAction func usersButtonPressed(_ sender: UIBarButtonItem) {
     }
     
+    func sortBasedOnSegmentPressed(){
+        switch sortSegmentedControl.selectedSegmentIndex{
+        case 0 : //longest
+            pods.podArray.sort(by: {$0.seconds > $1.seconds})
+            tableView.reloadData()
+        case 1: //number of Comments
+            pods.podArray.sort(by: {$0.numberOfComments > $1.numberOfComments} )
+            tableView.reloadData()
+        default:
+            print("HEY! Check segemented control!")
+        }
+        tableView.reloadData()
+    }
+    
+    @IBAction func sortSegmentPressed(_ sender: UISegmentedControl) {
+        sortBasedOnSegmentPressed()
+    }
     
 }
 
