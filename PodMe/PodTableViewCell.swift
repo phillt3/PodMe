@@ -19,6 +19,7 @@ class PodTableViewCell: UITableViewCell {
         didSet {
             titleLabel.text = pod.title
             authorLabel.text = pod.displayName
+            lengthLabel.text = pod.timeString
         }
     }
     

@@ -18,15 +18,17 @@ class Pod {
     var displayName: String
     var audioFileName : String
     var audioURL : String
+    var seconds: Int
+    var timeString: String
     
     //TODO: implement separate class/struct or elements of audio post itself
     //this includes the length of the post and the audio file
     
     var dictionary: [String: Any] {
-        return ["title": title, "postingUserID": postingUserID, "description" : description, "numberOfComments": numberOfComments, "displayName" : displayName, "audioFileName" : audioFileName, "audioURL" : audioURL]
+        return ["title": title, "postingUserID": postingUserID, "description" : description, "numberOfComments": numberOfComments, "displayName" : displayName, "audioFileName" : audioFileName, "audioURL" : audioURL, "seconds" : seconds, "timeString" : timeString]
     }
     
-    init(title: String, postingUserID: String, description: String, numberOfComments: Int, documentID: String, displayName: String, audioFileName: String, audioURL : String){
+    init(title: String, postingUserID: String, description: String, numberOfComments: Int, documentID: String, displayName: String, audioFileName: String, audioURL : String, seconds : Int, timeString : String){
         self.title = title
         self.postingUserID = postingUserID
         self.description = description
@@ -35,10 +37,12 @@ class Pod {
         self.displayName = displayName
         self.audioFileName = audioFileName
         self.audioURL = audioURL
+        self.seconds = seconds
+        self.timeString = timeString
     }
     
     convenience init() {
-        self.init(title: "", postingUserID: "", description: "", numberOfComments: 0, documentID: "", displayName: "", audioFileName: "", audioURL : "")
+        self.init(title: "", postingUserID: "", description: "", numberOfComments: 0, documentID: "", displayName: "", audioFileName: "", audioURL : "", seconds : 0, timeString : "")
     }
     
     convenience init(dictionary: [String: Any]){
@@ -47,9 +51,11 @@ class Pod {
         let description  = dictionary["description"] as! String? ?? ""
         let numberOfComments = dictionary["numberOfComments"] as! Int? ?? 0
         let displayName = dictionary["displayName"] as! String? ?? ""
-        let audioFileName = dictionary["displayName"] as! String? ?? ""
+        let audioFileName = dictionary["audioFileName"] as! String? ?? ""
         let audioURL = dictionary["audioURL"] as! String? ?? ""
-        self.init(title: title, postingUserID: postingUserID, description: description, numberOfComments: numberOfComments, documentID: "", displayName: displayName, audioFileName : audioFileName, audioURL : audioURL)
+        let seconds = dictionary["seconds"] as! Int? ?? 0
+        let timeString = dictionary["timeString"] as! String? ?? ""
+        self.init(title: title, postingUserID: postingUserID, description: description, numberOfComments: numberOfComments, documentID: "", displayName: displayName, audioFileName : audioFileName, audioURL : audioURL, seconds : seconds, timeString : timeString)
     }
     
     func getDirectory() -> URL
@@ -108,20 +114,48 @@ class Pod {
         print(audioRef)
         
         let uploadTask = audioRef.putFile(from: audioFile)
-        
         audioRef.downloadURL { (url, error) in
             guard let downloadURL = url else {
                 print("ERROR occurred while saving downloadURL")
+                print("\(error?.localizedDescription)")
+                print(url)
                 return
             }
+            print("Download URL successful")
+            print(downloadURL)
             self.audioURL = "\(downloadURL)"
         }
         
+        
     }
-    
-    
+
+//    func loadAudio() {
+//        let storage = Storage.storage()
+//        let storageRef = storage.reference()
+//
+//        storageRef.downloadURL { url, error in
+//            if let error = error {
+//                print("ERROR: \(error.localizedDescription)")
+//            } else {
+//                self.audioURL = "\(url)"
+//            }
+//        }
+//        let localAudioFile = getDocumentsDirectory().appendingPathComponent(audioFileName)
+//        //let downloadTask = storageRef.write(toFile: localAudioFile)
+//        let downloadTask = storageRef.write(toFile: localAudioFile) { url, error in
+//            if let error = error {
+//                print("ERROR: \(error.localizedDescription)")
+//            } else {
+//                self.audioURL = "\(url)"
+//            }
+//        }
+//    }
+  
+
+
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
     }
 }
+  
