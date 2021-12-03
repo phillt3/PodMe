@@ -74,6 +74,64 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A49723EF275AE40A0068ACB7 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A4DC1883272F6DDF0086DACB /* LoginViewController.swift */,
+				A4BF75D4273450EA002AEF03 /* PodListViewController.swift */,
+				A4BF75D827349F38002AEF03 /* PodDetailViewController.swift */,
+				A4B9BD5727598F8500C11C87 /* CommentViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		A49723F0275AE4240068ACB7 /* ViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				A4BF75D62734545B002AEF03 /* PodTableViewCell.swift */,
+				A4B9BD5D2759AC1800C11C87 /* PodCommentTableViewCell.swift */,
+			);
+			path = ViewCells;
+			sourceTree = "<group>";
+		};
+		A49723F1275AE43F0068ACB7 /* Unused */ = {
+			isa = PBXGroup;
+			children = (
+				A43753392755EA9B00A8C91A /* PodUserViewController.swift */,
+				A437533B2755EABC00A8C91A /* PodUserTableViewCell.swift */,
+			);
+			path = Unused;
+			sourceTree = "<group>";
+		};
+		A49723F2275AE4530068ACB7 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				A4720FB7273C7CC900BC91A8 /* UIViewController+alert.swift */,
+				A41FBB522756982D003FBF27 /* UIBarButtonItem+hide.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		A49723F5275AE49D0068ACB7 /* UnusedClasses */ = {
+			isa = PBXGroup;
+			children = (
+				A43753372755C16A00A8C91A /* PodUser.swift */,
+				A437533D2755EC2700A8C91A /* PodUsers.swift */,
+			);
+			path = UnusedClasses;
+			sourceTree = "<group>";
+		};
+		A49723F6275AE4AF0068ACB7 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				A4720FB5273C715100BC91A8 /* Pod.swift */,
+				A43753352755B40800A8C91A /* Pods.swift */,
+				A4B9BD59275994E800C11C87 /* Comment.swift */,
+				A4B9BD5B2759983400C11C87 /* Comments.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		A4DC1873272F6DDE0086DACB = {
 			isa = PBXGroup;
 			children = (
@@ -97,25 +155,15 @@
 			children = (
 				A4DC187F272F6DDF0086DACB /* AppDelegate.swift */,
 				A4DC1881272F6DDF0086DACB /* SceneDelegate.swift */,
-				A4720FB5273C715100BC91A8 /* Pod.swift */,
-				A43753352755B40800A8C91A /* Pods.swift */,
-				A4B9BD59275994E800C11C87 /* Comment.swift */,
-				A4B9BD5B2759983400C11C87 /* Comments.swift */,
-				A43753372755C16A00A8C91A /* PodUser.swift */,
-				A437533D2755EC2700A8C91A /* PodUsers.swift */,
-				A4DC1883272F6DDF0086DACB /* LoginViewController.swift */,
-				A4BF75D4273450EA002AEF03 /* PodListViewController.swift */,
-				A4BF75D62734545B002AEF03 /* PodTableViewCell.swift */,
-				A4BF75D827349F38002AEF03 /* PodDetailViewController.swift */,
-				A4B9BD5D2759AC1800C11C87 /* PodCommentTableViewCell.swift */,
-				A4B9BD5727598F8500C11C87 /* CommentViewController.swift */,
-				A43753392755EA9B00A8C91A /* PodUserViewController.swift */,
-				A437533B2755EABC00A8C91A /* PodUserTableViewCell.swift */,
-				A4720FB7273C7CC900BC91A8 /* UIViewController+alert.swift */,
-				A41FBB522756982D003FBF27 /* UIBarButtonItem+hide.swift */,
+				A49723F6275AE4AF0068ACB7 /* Classes */,
+				A49723F5275AE49D0068ACB7 /* UnusedClasses */,
+				A49723EF275AE40A0068ACB7 /* ViewController */,
+				A49723F0275AE4240068ACB7 /* ViewCells */,
+				A49723F1275AE43F0068ACB7 /* Unused */,
+				A49723F2275AE4530068ACB7 /* Utilities */,
 				A4DC1885272F6DDF0086DACB /* Main.storyboard */,
-				A4DC1888272F6DE00086DACB /* Assets.xcassets */,
 				A4DC188A272F6DE00086DACB /* LaunchScreen.storyboard */,
+				A4DC1888272F6DE00086DACB /* Assets.xcassets */,
 				A4DC188D272F6DE00086DACB /* Info.plist */,
 				A4DC1893272F76800086DACB /* GoogleService-Info.plist */,
 			);
