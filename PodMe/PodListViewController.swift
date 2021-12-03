@@ -46,12 +46,13 @@ class PodListViewController: UIViewController {
     }
     
     func sortBasedOnSegmentPressed(){
+        print(sortSegmentedControl.selectedSegmentIndex)
         switch sortSegmentedControl.selectedSegmentIndex{
         case 0 : //longest
             pods.podArray.sort(by: {$0.seconds > $1.seconds})
             tableView.reloadData()
         case 1: //number of Comments
-            pods.podArray.sort(by: {$0.numberOfComments > $1.numberOfComments} )
+            pods.podArray.sort(by: {$0.title < $1.title} )
             tableView.reloadData()
         default:
             print("HEY! Check segemented control!")
@@ -61,6 +62,7 @@ class PodListViewController: UIViewController {
     
     @IBAction func sortSegmentPressed(_ sender: UISegmentedControl) {
         sortBasedOnSegmentPressed()
+        tableView.reloadData()
     }
     
 }

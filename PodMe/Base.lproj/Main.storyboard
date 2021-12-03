@@ -114,7 +114,7 @@
                                 <color key="backgroundColor" name="PrimaryColor"/>
                                 <segments>
                                     <segment title="Longest"/>
-                                    <segment title="Most Comments"/>
+                                    <segment title="A-Z"/>
                                 </segments>
                                 <connections>
                                     <action selector="sortSegmentPressed:" destination="4Jg-Mc-0ti" eventType="valueChanged" id="iS1-vg-UzT"/>
