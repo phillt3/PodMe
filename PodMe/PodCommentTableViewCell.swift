@@ -6,13 +6,16 @@
 //
 
 import UIKit
+import AVFoundation
 
-class PodCommentTableViewCell: UITableViewCell {
+class PodCommentTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
 
     @IBOutlet weak var commentTitleLabel: UILabel!
     @IBOutlet weak var authorNameLabel: UILabel!
     @IBOutlet weak var lengthLabel: UILabel!
     @IBOutlet weak var commentPlayButton: UIButton!
+    
+    var AudioPlayer: AVAudioPlayer?
     
     var comment: Comment! {
         didSet {
@@ -22,8 +25,38 @@ class PodCommentTableViewCell: UITableViewCell {
         }
     }
     
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        commentPlayButton.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
+    }
     
     @IBAction func commentPlayButtonPressed(_ sender: UIButton) {
+        print("Here we are...")
+        if let AudioPlayer = AudioPlayer, AudioPlayer.isPlaying {
+            //stop playback
+            commentPlayButton.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
+            AudioPlayer.stop()
+        } else {
+            //set up player, and play
+            commentPlayButton.setImage(UIImage(systemName: "pause.circle.fill"), for: .normal)
+            let path = getDocumentsDirectory().appendingPathComponent(comment.audioFileName)
+            do {
+                try AVAudioSession.sharedInstance().setMode(.default)
+                try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+                AudioPlayer = try AVAudioPlayer(contentsOf: path)
+                guard let AudioPlayer = AudioPlayer else {
+                    return
+                }
+                AudioPlayer.delegate = self
+                AudioPlayer.play()
+            } catch {
+                print("Was not able to play audio")
+            }
+        }
     }
     
 

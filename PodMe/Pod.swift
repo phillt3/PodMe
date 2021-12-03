@@ -150,9 +150,29 @@ class Pod {
 //            }
 //        }
 //    }
+    
+    func loadAudio(completion: @escaping (Bool) -> ()){
+        let storage = Storage.storage()
+        let storageRef = storage.reference().child(documentID)
+        let localURL = getDocumentsDirectory().appendingPathComponent(audioFileName)
+        
+        let downloadTask = storageRef.write(toFile: localURL) { url, error in
+            if let error = error {
+                print("An error occurred while loading audio. \(error.localizedDescription)")
+                return completion(false)
+            } else {
+                if url != nil {
+                    self.audioURL = "\(url!)"
+                    print(self.audioURL)
+                    return completion(true)
+                } else {
+                    print("The local url was nil")
+                    return completion(true)
+                }
+            }
+        }
+    }
   
-
-
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]

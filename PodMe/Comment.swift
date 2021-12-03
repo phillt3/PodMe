@@ -70,6 +70,7 @@ class Comment {
                 }
                 self.documentID = ref!.documentID
                 print("Added document: \(self.documentID) to pod: \(pod.documentID)")
+                self.saveAudio(pod: pod)
                 completion(true)
             }
         } else {
@@ -80,9 +81,59 @@ class Comment {
                     return completion(false)
                 }
                 print("Updated document: \(self.documentID) in pod: \(pod.documentID)")
+                self.saveAudio(pod: pod)
                 completion(true)
             }
         }
+    }
+    
+    func saveAudio(pod: Pod) {
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        let audioFile = getDocumentsDirectory().appendingPathComponent(audioFileName)
+        print(audioFileName)
+        print(audioFile)
+        let audioRef = storage.reference().child(pod.documentID).child(documentID)
+        print(audioRef)
+        
+        let uploadTask = audioRef.putFile(from: audioFile)
+        audioRef.downloadURL { (url, error) in
+            guard let downloadURL = url else {
+                print("ERROR occurred while saving downloadURL")
+                print("\(error?.localizedDescription)")
+                print(url)
+                return
+            }
+            print("Download URL successful")
+            print(downloadURL)
+            self.audioURL = "\(downloadURL)"
+        }
+    }
+    
+    func loadAudio(pod : Pod, completion: @escaping (Bool) -> ()){
+        let storage = Storage.storage()
+        let storageRef = storage.reference().child(pod.documentID).child(documentID)
+        let localURL = getDocumentsDirectory().appendingPathComponent(audioFileName)
+        let downloadTask = storageRef.write(toFile: localURL) { url, error in
+            if let error = error {
+                print("An error occurred while loading audio. \(error.localizedDescription)")
+                return completion(false)
+            } else {
+                if url != nil {
+                    self.audioURL = "\(url!)"
+                    print(self.audioURL)
+                    return completion(true)
+                } else {
+                    print("The local url was nil")
+                    return completion(true)
+                }
+            }
+        }
+    }
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
     }
     
 }

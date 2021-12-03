@@ -353,7 +353,15 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
                 playbutton.setImage(UIImage(systemName: "pause.circle.fill"), for: .normal)
                 tempCount = 0
                 playBackCounter(start: true)
-                let path = getDocumentsDirectory().appendingPathComponent(pod.audioFileName)
+                var path = getDocumentsDirectory().appendingPathComponent(pod.audioFileName)
+                pod.loadAudio { (success) in
+                    if success {
+                        path = URL(string: self.pod.audioURL)!
+                        print("Using loaded audio with path \(path)")
+                    } else{
+                        print("ERROR: could not load audio for \(self.pod.audioURL), using local path")
+                    }
+                }
                 do {
                     try AVAudioSession.sharedInstance().setMode(.default)
                     try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
