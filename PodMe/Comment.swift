@@ -43,4 +43,46 @@ class Comment {
         self.init(commentTitle: "", commentingUserID: commentingUserID, documentID: "", displayName: displayName, audioFileName: "", audioURL: "", seconds: 0, timeString: "", date: Date())
     }
     
+    convenience init(dictionary: [String: Any]){
+        let commentTitle = dictionary["commentTitle"] as! String? ?? ""
+        let commentingUserID = dictionary["commentingUserID"] as! String? ?? ""
+        let displayName = dictionary["displayName"] as! String? ?? ""
+        let audioFileName = dictionary["audioFileName"] as! String? ?? ""
+        let audioURL = dictionary["audioURL"] as! String? ?? ""
+        let seconds = dictionary["seconds"] as! Int? ?? 0
+        let timeString = dictionary["timeString"] as! String? ?? ""
+        let timeIntervalDate = dictionary["date"] as! TimeInterval? ?? TimeInterval()
+        let date = Date(timeIntervalSince1970: timeIntervalDate)
+        let documentID = dictionary["documentID"] as! String? ?? ""
+        self.init(commentTitle: commentTitle, commentingUserID: commentingUserID, documentID: documentID, displayName: displayName, audioFileName: audioFileName, audioURL: audioURL, seconds: seconds, timeString: timeString, date: date)
+    }
+    
+    func saveData(pod: Pod, completion: @escaping (Bool) -> ()) {
+        let db = Firestore.firestore()
+        
+        let dataToSave: [String : Any] = self.dictionary
+        if self.documentID == "" {
+            var ref: DocumentReference? = nil
+            ref = db.collection("pods").document(pod.documentID).collection("comments").addDocument(data: dataToSave) { (error) in
+                guard error == nil else {
+                    print("ERROR: adding document \(error!.localizedDescription)")
+                    return completion(false)
+                }
+                self.documentID = ref!.documentID
+                print("Added document: \(self.documentID) to pod: \(pod.documentID)")
+                completion(true)
+            }
+        } else {
+            let ref = db.collection("pods").document(pod.documentID).collection("comments").document(self.documentID)
+            ref.setData(dataToSave) { (error) in
+                guard error == nil else {
+                    print("ERROR: updating document \(error!.localizedDescription)")
+                    return completion(false)
+                }
+                print("Updated document: \(self.documentID) in pod: \(pod.documentID)")
+                completion(true)
+            }
+        }
+    }
+    
 }

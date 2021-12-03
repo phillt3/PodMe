@@ -37,12 +37,16 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     var audioRecorder: AVAudioRecorder!
     var AudioPlayer: AVAudioPlayer?
     
-    var comments: [String] = ["Can't wait for more!", "I like this!","Can't wait for more!", "I like this!","Can't wait for more!", "I like this!"]
+    var comments: Comments!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
         
         recordingSession = AVAudioSession.sharedInstance()
         do {
@@ -85,10 +89,19 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
             timeSlider.setThumbImage(UIImage(), for: .normal)
             uploading = false
         }
+        comments = Comments()
         updateUserInterface()
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        comments.loadData(pod: pod) {
+            print("This runs")
+            print(self.comments.commentArray)
+            self.tableView.reloadData()
+        }
+    }
     
     func updateUserInterface() {
         titleTextField.text = pod.title
@@ -115,6 +128,23 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        updateFromUserInterface()
+        switch segue.identifier ?? "" {
+        case "AddComment":
+            let navigationController = segue.destination as! UINavigationController
+            let destination = navigationController.viewControllers.first as! CommentViewController
+            destination.pod = pod
+        case "ShowComment":
+            let destination = segue.destination as! CommentViewController
+            let selectedIndexPath = tableView.indexPathForSelectedRow
+            destination.comment = comments.commentArray[selectedIndexPath!.row]
+            destination.pod = pod
+        default:
+            print("Couldn't find a case for segue identifier \(segue.identifier)")
+        }
+    }
+    
     func disableTextEditing(){
         titleTextField.isEnabled = false
         descriptionTextField.isEditable = false
@@ -138,6 +168,15 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
         let time = secondsToHoursMinutesSeconds(seconds: tempCount)
         let timeString = makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
         lengthLabel.text = timeString
+    }
+    
+    func playBackCounter(start : Bool){
+        if start == true {
+            lengthLabel.text = makeTimeString(hours: 0, minutes: 0, seconds: 0)
+            playBackTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(playBackTimerCounter), userInfo: nil, repeats: true)
+        } else {
+            playBackTimer.invalidate()
+        }
     }
     
     func secondsToHoursMinutesSeconds(seconds: Int) -> (Int, Int, Int) {
@@ -219,6 +258,51 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
         playBackCounter(start: false)
     }
     
+    
+    func saveCancelAlert(title: String, message: String, segueIdentifier: String){
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: "Save", style: .default) { (_) in
+            self.updateFromUserInterface()
+            self.pod.saveData { (success) in
+                //TODO: have to test what happens in this situation
+//                self.saveBarButton.title = "done"
+//                self.cancelBarButton.hide()
+//                self.navigationController?.setToolbarHidden(true, animated: true)
+//                self.disableTextEditing()
+                self.disableTextEditing()
+                self.saveBarButton.hide()
+                self.testButton.isHidden = true
+                self.testButton.isEnabled = false
+                self.uploadGuideLabel.isHidden = true
+                self.uploadGuideLabel.isEnabled = false
+                self.timeSlider.setValue(0.0, animated: false)
+                self.timeSlider.minimumValue = 0.0
+                self.timeSlider.maximumValue = Float(self.pod.seconds)
+                self.timeSlider.setThumbImage(UIImage(), for: .normal)
+                self.timeSlider.isHidden = false
+                self.timeSlider.isEnabled = true
+                self.uploading = false
+                print(segueIdentifier)
+                if segueIdentifier == "AddComment"{
+                    self.performSegue(withIdentifier: segueIdentifier, sender: nil)
+                }
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func addCommentButtonPressed(_ sender: UIBarButtonItem) {
+        if pod.documentID == "" {
+            saveCancelAlert(title: "This Pod Has Not Been Saved", message: "You must save this Pod before you leave a comment.", segueIdentifier: "AddComment")
+        } else {
+            performSegue(withIdentifier: "AddComment", sender: nil)
+        }
+    }
+    
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
         updateFromUserInterface()
         pod.saveData { (success) in
@@ -286,25 +370,19 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
             }
         }
     }
-    
-    func playBackCounter(start : Bool){
-        if start == true {
-            lengthLabel.text = makeTimeString(hours: 0, minutes: 0, seconds: 0)
-            playBackTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(playBackTimerCounter), userInfo: nil, repeats: true)
-        } else {
-            playBackTimer.invalidate()
-        }
-    }
 }
 
 extension PodDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        pod.numberOfComments = comments.count
-        return comments.count
+        pod.numberOfComments = comments.commentArray.count
+        return comments.commentArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! PodCommentTableViewCell
+        cell.comment = comments.commentArray[indexPath.row]
+        //update
+        //TODO: deal with custom cell
         return cell
     }
     

@@ -365,7 +365,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommentCell" id="OnI-el-TgO">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommentCell" id="OnI-el-TgO" customClass="PodCommentTableViewCell" customModule="PodMe" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="424.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OnI-el-TgO" id="BKC-tB-4on">
@@ -406,6 +406,9 @@
                                                     <rect key="frame" x="331" y="6" width="44" height="31.5"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="play.circle.fill" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="commentPlayButtonPressed:" destination="OnI-el-TgO" eventType="touchUpInside" id="KNg-wA-Vsc"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -421,6 +424,10 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="authorNameLabel" destination="5k2-Rr-4L3" id="ak6-pC-xwM"/>
+                                            <outlet property="commentPlayButton" destination="rF5-rE-2EU" id="2ze-cC-wg4"/>
+                                            <outlet property="commentTitleLabel" destination="FHf-up-BSX" id="beh-eJ-WIs"/>
+                                            <outlet property="lengthLabel" destination="5a5-6U-GvC" id="OnO-IK-OCQ"/>
                                             <segue destination="V1e-qf-nJV" kind="show" identifier="ShowComment" id="aLA-U4-Wzu"/>
                                         </connections>
                                     </tableViewCell>
@@ -442,6 +449,9 @@
                         </barButtonItem>
                         <barButtonItem title="Add Comment" id="AM4-En-j55">
                             <color key="tintColor" name="PrimaryColor"/>
+                            <connections>
+                                <action selector="addCommentButtonPressed:" destination="Ri8-E5-6wN" id="ymZ-wa-b7j"/>
+                            </connections>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="ikF-po-HVG">
@@ -495,6 +505,9 @@
                                     <imageReference key="image" image="play.circle.fill" catalog="system" symbolScale="large"/>
                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="60"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="commentPlayButtonPressed:" destination="V1e-qf-nJV" eventType="touchUpInside" id="0hi-oy-DuY"/>
+                                </connections>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="kHW-Jc-BSo">
                                 <rect key="frame" x="40.5" y="222" width="294" height="31"/>
@@ -502,23 +515,6 @@
                                     <constraint firstAttribute="width" constant="290" id="aFS-Um-7Bk"/>
                                 </constraints>
                             </slider>
-                            <textField opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="This will be where the user can input a title!" borderStyle="roundedRect" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="Yeu-M4-xzA">
-                                <rect key="frame" x="37" y="44" width="300" height="36"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="7Vz-lr-wK3"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="20"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phillip Andrew Tracy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OqP-77-fu8">
-                                <rect key="frame" x="52" y="86" width="270" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="270" id="Lfx-B5-eJW"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caB-aZ-qgd">
                                 <rect key="frame" x="102.5" y="270" width="170" height="48"/>
                                 <constraints>
@@ -528,6 +524,31 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="This will be where the user can input a title!" borderStyle="roundedRect" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="Yeu-M4-xzA">
+                                <rect key="frame" x="38" y="44" width="300" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="7Vz-lr-wK3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="commentTitleChanged:" destination="V1e-qf-nJV" eventType="editingChanged" id="OKF-1a-YNl"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phillip Andrew Tracy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OqP-77-fu8">
+                                <rect key="frame" x="53" y="86" width="270" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="270" id="Lfx-B5-eJW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1XF-fT-zL7">
+                                <rect key="frame" x="250" y="155" width="91" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Play Back "/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="35O-3w-jVF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -536,29 +557,37 @@
                             <constraint firstItem="kHW-Jc-BSo" firstAttribute="centerX" secondItem="fHC-0c-5BL" secondAttribute="centerX" id="Cw4-nm-XLn"/>
                             <constraint firstItem="caB-aZ-qgd" firstAttribute="centerX" secondItem="fHC-0c-5BL" secondAttribute="centerX" id="IAP-f0-kn2"/>
                             <constraint firstItem="OqP-77-fu8" firstAttribute="top" secondItem="Yeu-M4-xzA" secondAttribute="bottom" constant="6" id="Ktp-xc-t2O"/>
+                            <constraint firstItem="kHW-Jc-BSo" firstAttribute="top" secondItem="1XF-fT-zL7" secondAttribute="bottom" constant="36" id="L8x-NU-bAY"/>
                             <constraint firstItem="7RF-tO-6RL" firstAttribute="top" secondItem="OqP-77-fu8" secondAttribute="bottom" constant="10" id="NVZ-q1-WiM"/>
                             <constraint firstItem="OqP-77-fu8" firstAttribute="centerX" secondItem="fHC-0c-5BL" secondAttribute="centerX" id="Thh-K3-v9e"/>
                             <constraint firstItem="Yeu-M4-xzA" firstAttribute="top" secondItem="35O-3w-jVF" secondAttribute="top" id="Ulu-qb-Ccm"/>
                             <constraint firstItem="kHW-Jc-BSo" firstAttribute="top" secondItem="7RF-tO-6RL" secondAttribute="bottom" constant="9" id="cgc-oz-u6Q"/>
                             <constraint firstItem="Yeu-M4-xzA" firstAttribute="centerX" secondItem="fHC-0c-5BL" secondAttribute="centerX" id="hwf-RH-31r"/>
+                            <constraint firstItem="1XF-fT-zL7" firstAttribute="leading" secondItem="7RF-tO-6RL" secondAttribute="trailing" constant="7.5" id="q7c-0d-uBN"/>
                             <constraint firstItem="caB-aZ-qgd" firstAttribute="top" secondItem="kHW-Jc-BSo" secondAttribute="bottom" constant="18" id="zjw-EW-kgm"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" leftItemsSupplementBackButton="YES" id="Oy5-Jx-cRB">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="t2E-PR-Udh">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="t2E-PR-Udh">
                             <connections>
                                 <action selector="commentCancelButtonPressed:" destination="V1e-qf-nJV" id="AZd-4w-TKU"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="n8b-f3-Iju"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="n8b-f3-Iju">
+                            <connections>
+                                <action selector="commentSaveButtonPressed:" destination="V1e-qf-nJV" id="qVG-Uq-n8n"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="cancelBarButton" destination="t2E-PR-Udh" id="5Xf-VF-0mg"/>
                         <outlet property="commentAuthorLabel" destination="OqP-77-fu8" id="tEN-OU-6TH"/>
                         <outlet property="commentLengthLabel" destination="caB-aZ-qgd" id="LZb-Cf-Nzn"/>
                         <outlet property="commentPlayButton" destination="7RF-tO-6RL" id="05T-ze-pDu"/>
                         <outlet property="commentSlider" destination="kHW-Jc-BSo" id="O55-Cj-KuC"/>
                         <outlet property="commentTitleField" destination="Yeu-M4-xzA" id="YFn-B6-wB2"/>
+                        <outlet property="saveBarButton" destination="n8b-f3-Iju" id="chf-hr-pKD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NN5-wh-nva" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

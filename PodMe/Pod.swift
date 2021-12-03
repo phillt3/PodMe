@@ -90,7 +90,7 @@ class Pod {
                 self.saveAudio()
                 completion(true)
             }
-        } else { //esle save to the existing documentiD w/.setDaata
+        } else { //else save to the existing documentiD w/.setDaata
             let ref = db.collection("pods").document(self.documentID)
             ref.setData(dataToSave) { (error) in
                 guard error == nil else {

@@ -16,8 +16,11 @@ class Comments {
         db = Firestore.firestore()
     }
     
-    func loadData(completed: @escaping () -> ()){
-        db.collection("comments").addSnapshotListener { (querySnapshot, error) in
+    func loadData(pod: Pod, completed: @escaping () -> ()){
+        guard pod.documentID != "" else {
+            return
+        }
+        db.collection("pods").document(pod.documentID).collection("comments").addSnapshotListener { (querySnapshot, error) in
             guard error == nil else {
                 print("ERROR: adding the snapshot listener \(error!.localizedDescription)")
                 return completed()
