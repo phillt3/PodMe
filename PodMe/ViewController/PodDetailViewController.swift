@@ -165,7 +165,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
         if tempCount == pod.seconds{
             playBackTimer.invalidate()
         }
-        timeSlider.setValue((Float(tempCount)), animated: true)
+        timeSlider.setValue((Float(tempCount)), animated: false)
         let time = secondsToHoursMinutesSeconds(seconds: tempCount)
         let timeString = makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
         lengthLabel.text = timeString

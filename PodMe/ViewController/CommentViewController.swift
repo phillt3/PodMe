@@ -85,7 +85,7 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
         if tempCount == comment.seconds{
             playBackTimer.invalidate()
         }
-        commentSlider.setValue((Float(tempCount)), animated: true)
+        commentSlider.setValue((Float(tempCount)), animated: false)
         let time = secondsToHoursMinutesSeconds(seconds: tempCount)
         let timeString = makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
         commentLengthLabel.text = timeString

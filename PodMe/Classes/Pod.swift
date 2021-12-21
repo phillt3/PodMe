@@ -21,9 +21,6 @@ class Pod {
     var seconds: Int
     var timeString: String
     
-    //TODO: implement separate class/struct or elements of audio post itself
-    //this includes the length of the post and the audio file
-    
     var dictionary: [String: Any] {
         return ["title": title, "postingUserID": postingUserID, "description" : description, "numberOfComments": numberOfComments, "displayName" : displayName, "audioFileName" : audioFileName, "audioURL" : audioURL, "seconds" : seconds, "timeString" : timeString]
     }
@@ -128,28 +125,6 @@ class Pod {
         
         
     }
-
-//    func loadAudio() {
-//        let storage = Storage.storage()
-//        let storageRef = storage.reference()
-//
-//        storageRef.downloadURL { url, error in
-//            if let error = error {
-//                print("ERROR: \(error.localizedDescription)")
-//            } else {
-//                self.audioURL = "\(url)"
-//            }
-//        }
-//        let localAudioFile = getDocumentsDirectory().appendingPathComponent(audioFileName)
-//        //let downloadTask = storageRef.write(toFile: localAudioFile)
-//        let downloadTask = storageRef.write(toFile: localAudioFile) { url, error in
-//            if let error = error {
-//                print("ERROR: \(error.localizedDescription)")
-//            } else {
-//                self.audioURL = "\(url)"
-//            }
-//        }
-//    }
     
     func loadAudio(completion: @escaping (Bool) -> ()){
         let storage = Storage.storage()

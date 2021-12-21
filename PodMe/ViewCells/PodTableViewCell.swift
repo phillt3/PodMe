@@ -14,14 +14,18 @@ class PodTableViewCell: UITableViewCell {
     @IBOutlet weak var authorLabel: UILabel!
     
     @IBOutlet weak var lengthLabel: UILabel!
+    @IBOutlet weak var profileButton: UIButton!
     
     var pod: Pod! {
         didSet {
+            profileButton.layer.cornerRadius = 15
+            profileButton.layer.masksToBounds = true
             titleLabel.text = pod.title
             authorLabel.text = pod.displayName
             lengthLabel.text = pod.timeString
         }
     }
+    
     
     
 }
