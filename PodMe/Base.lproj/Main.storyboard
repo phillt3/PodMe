@@ -257,12 +257,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="useremail@email.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4tm-MD-GQ1">
-                                <rect key="frame" x="104.5" y="44" width="166" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bqW-0Y-R4C"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -279,13 +273,11 @@
                             <constraint firstItem="1DC-9S-6dK" firstAttribute="centerX" secondItem="tYY-dR-63e" secondAttribute="centerX" id="d1w-Ja-Hat"/>
                             <constraint firstItem="TbR-nH-kuu" firstAttribute="top" secondItem="fnW-Xx-RrP" secondAttribute="bottom" constant="8" symbolic="YES" id="d5R-0C-LBN"/>
                             <constraint firstItem="fnW-Xx-RrP" firstAttribute="top" secondItem="4Hi-tv-7bF" secondAttribute="bottom" constant="28" id="djs-ra-SDj"/>
-                            <constraint firstItem="4tm-MD-GQ1" firstAttribute="top" secondItem="bqW-0Y-R4C" secondAttribute="top" id="kDi-oH-F63"/>
                             <constraint firstItem="Uhh-08-n61" firstAttribute="leading" secondItem="4Hi-tv-7bF" secondAttribute="trailing" constant="14" id="nTS-Nc-Zzc"/>
                             <constraint firstItem="4Hi-tv-7bF" firstAttribute="leading" secondItem="bqW-0Y-R4C" secondAttribute="leading" constant="16" id="ncU-fS-qu4"/>
                             <constraint firstItem="TbR-nH-kuu" firstAttribute="leading" secondItem="bqW-0Y-R4C" secondAttribute="leading" constant="16" id="oMo-H3-lxi"/>
                             <constraint firstItem="U6n-wA-qNH" firstAttribute="top" secondItem="Gfn-ph-osR" secondAttribute="bottom" constant="25" id="qdD-Ex-LP4"/>
                             <constraint firstItem="fnW-Xx-RrP" firstAttribute="leading" secondItem="bqW-0Y-R4C" secondAttribute="leading" constant="16" id="rV5-4o-YyG"/>
-                            <constraint firstItem="4tm-MD-GQ1" firstAttribute="centerX" secondItem="tYY-dR-63e" secondAttribute="centerX" id="xcp-E1-WD6"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="HBt-Sq-NIx">
@@ -309,7 +301,6 @@
                         <outlet property="nameTextField" destination="U6n-wA-qNH" id="5n6-vI-3Vf"/>
                         <outlet property="pronounsTextField" destination="Uhh-08-n61" id="gpo-rP-Tyz"/>
                         <outlet property="saveBarButton" destination="K0Y-Zy-YaS" id="ejY-08-hzW"/>
-                        <outlet property="userEmail" destination="4tm-MD-GQ1" id="7nK-Ju-dl9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qgi-d6-28f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

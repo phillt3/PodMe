@@ -148,10 +148,9 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
         if isPresentingInAddMode {
             dismiss(animated: true, completion: nil)
         } else {
-            //            if AudioPlayer != nil && AudioPlayer!.isPlaying{
-            //                AudioPlayer!.stop()
-            //            }
-            //TODO: Once audio player is setup, stop by here to stop it once you leave
+            if AudioPlayer != nil && AudioPlayer!.isPlaying{
+                AudioPlayer!.stop()
+            }
             navigationController?.popViewController(animated: true)
         }
     }

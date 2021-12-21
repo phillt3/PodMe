@@ -13,9 +13,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var pronounsTextField: UITextField!
     @IBOutlet weak var aboutTextField: UITextView!
-    @IBOutlet weak var saveBarButton: UIBarButtonItem!
-    @IBOutlet weak var userEmail: UILabel!
-    
+    @IBOutlet weak var saveBarButton: UIBarButtonItem!    
     override func viewDidLoad() {
         super.viewDidLoad()
         
