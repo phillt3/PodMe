@@ -254,7 +254,6 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
                 saveBarButton.isEnabled = true
             }
         } else {
-            print("Here we are...")
             if let AudioPlayer = AudioPlayer, AudioPlayer.isPlaying {
                 //stop playback
                 commentPlayButton.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)

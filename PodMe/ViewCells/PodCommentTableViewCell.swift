@@ -14,6 +14,7 @@ class PodCommentTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
     @IBOutlet weak var authorNameLabel: UILabel!
     @IBOutlet weak var lengthLabel: UILabel!
     @IBOutlet weak var commentPlayButton: UIButton!
+
     
     
     var AudioPlayer: AVAudioPlayer?

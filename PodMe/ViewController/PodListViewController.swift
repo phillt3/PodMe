@@ -6,21 +6,23 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class PodListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var sortSegmentedControl: UISegmentedControl!
-    
-    
-    //var pods = ["Get Rich or Die Crying", "How to Lose Money", "Jeff Bezos, We Love You", "First Tik Toker in Space", "Twitch Got Hacked", "Can Drinking 4 Redbulls a Day Lead to Better Thumbnails?"]
+        
     
     var pods: Pods!
+    var profiles: Profiles!
+    var buttonPressed: Int = -1
 
     override func viewDidLoad() {
         super.viewDidLoad()
         pods = Pods()
+        profiles = Profiles()
         tableView.delegate = self
         tableView.dataSource = self
 
@@ -32,6 +34,10 @@ class PodListViewController: UIViewController {
             self.sortBasedOnSegmentPressed()
             self.tableView.reloadData()
         }
+        profiles.loadData {
+            self.sortBasedOnSegmentPressed()
+            self.tableView.reloadData()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -39,10 +45,16 @@ class PodListViewController: UIViewController {
             let destination = segue.destination as! PodDetailViewController
             let selectedIndexPath = tableView.indexPathForSelectedRow
             destination.pod = pods.podArray[selectedIndexPath!.row]
+        } else if segue.identifier == "EditProfile" {
+            guard let userID = Auth.auth().currentUser?.uid else {
+                print("ERROR: Could not view profile because we don't have a valid postingUserID.")
+                return
+            }
+            if let nav = segue.destination as? UINavigationController,
+                let vc = nav.topViewController as? ProfileViewController {
+                vc.profile = profiles.profileDict[userID]
+            }
         }
-    }
-    
-    @IBAction func usersButtonPressed(_ sender: UIBarButtonItem) {
     }
     
     func sortBasedOnSegmentPressed(){

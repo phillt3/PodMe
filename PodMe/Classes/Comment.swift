@@ -101,7 +101,6 @@ class Comment {
             guard let downloadURL = url else {
                 print("ERROR occurred while saving downloadURL")
                 print("\(error?.localizedDescription)")
-                print(url)
                 return
             }
             print("Download URL successful")

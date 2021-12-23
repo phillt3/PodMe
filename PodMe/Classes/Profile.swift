@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class Profile {
-
+    
     var email: String
     var displayName: String
     var userID: String
@@ -35,11 +35,58 @@ class Profile {
         self.documentID = documentID
     }
     
-    convenience init(){
-        let userID = Auth.auth().currentUser?.uid ?? ""
-        let email = Auth.auth().currentUser?.email ?? "unknown email"
-        let displayName = Auth.auth().currentUser?.displayName ?? ""
-        self.init(email: email, displayName: displayName, userID: userID, photoURL: "", profileImage: UIImage(), pronouns: "", about: "", documentID: "")
+    convenience init(user: User){
+        let userID = user.uid
+        let email = user.email ?? "unknown email"
+        let displayName = user.displayName ?? ""
+        self.init(email: email, displayName: displayName, userID: userID, photoURL: "", profileImage: UIImage(), pronouns: "", about: "", documentID: user.uid)
     }
     
+    convenience init(dictionary: [String: Any]){
+        let email = dictionary["email"] as! String? ?? ""
+        let displayName = dictionary["displayName"] as! String? ?? ""
+        let userID = dictionary["userID"] as! String? ?? ""
+        let photoURL = dictionary["photoURL"] as! String? ?? ""
+        let pronouns = dictionary["pronouns"] as! String? ?? ""
+        let about = dictionary["about"] as! String? ?? ""
+        self.init(email: email, displayName: displayName, userID: userID, photoURL: photoURL, profileImage: UIImage(), pronouns: pronouns, about: about, documentID: "")
+    }
+    
+    func saveIfNewUser(completion: @escaping (Bool) -> ()) {
+        let db = Firestore.firestore()
+        let profileRef = db.collection("profiles").document(documentID)
+        profileRef.getDocument { (document, error) in
+            guard error == nil else {
+                print("ERROR could not access document for user \(self.documentID)")
+                return completion(false)
+            }
+            guard document?.exists == false else {
+                print("The document for user \(self.documentID) already exists. No reason to recreate it.")
+                return completion(true)
+            }
+            
+            let dataToSave: [String: Any] = self.dictionary
+            db.collection("profiles").document(self.documentID).setData(dataToSave) { (error) in
+                guard error == nil else {
+                    print("ERROR: \(error?.localizedDescription), could not save data for \(self.documentID)")
+                    return completion(false)
+                }
+                return completion(true)
+            }
+        }
+    }
+    
+    func loadImage(completion: @escaping(Bool) -> ()){
+        let storage = Storage.storage()
+        let storageRef = storage.reference().child(documentID)
+        storageRef.getData(maxSize: 25 * 1024 * 1024) { (data, error) in
+            if let error = error {
+                print("ERROR: an error occurred while reading data from file ref: \(storageRef) error = \(error.localizedDescription)")
+                return completion(false)
+            } else {
+                self.profileImage = UIImage(data: data!) ?? UIImage()
+                return completion(true)
+            }
+        }
+    }
 }

@@ -38,20 +38,19 @@ class LoginViewController: UIViewController {
             loginViewController.modalPresentationStyle = .fullScreen
             present(loginViewController, animated: true, completion: nil)
         } else { // user is already logged in
-//            guard let currentUser = authUI.auth?.currentUser else {
-//                print("ERROR: Could not get currentUser")
-//                return
-//            }
-//            let podUser = PodUser(user: currentUser)
-//            podUser.saveIfNewUser { (success) in
-//                if success {
-//                    self.performSegue(withIdentifier: "FirstShowSegue", sender: nil)
-//                } else {
-//                    print("ERROR: Tried to save a new pod user but failed.")
-//                }
-//            }
+            guard let currentUser = authUI.auth?.currentUser else {
+                print("ERROR: Could not get currentUser")
+                return
+            }
+            let podUser = Profile(user: currentUser)
+            podUser.saveIfNewUser { (success) in
+                if success {
+                    self.performSegue(withIdentifier: "FirstShowSegue", sender: nil)
+                } else {
+                    print("ERROR: Tried to save a new pod user but failed.")
+                }
+            }
             self.performSegue(withIdentifier: "FirstShowSegue", sender: nil)
-
         }
     }
     

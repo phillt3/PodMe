@@ -283,7 +283,6 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
                 self.timeSlider.isHidden = false
                 self.timeSlider.isEnabled = true
                 self.uploading = false
-                print(segueIdentifier)
                 if segueIdentifier == "AddComment"{
                     self.performSegue(withIdentifier: segueIdentifier, sender: nil)
                 }
