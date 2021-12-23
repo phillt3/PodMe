@@ -38,6 +38,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     var AudioPlayer: AVAudioPlayer?
     
     var comments: Comments!
+    var profile: Profile!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,6 +142,9 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
             let selectedIndexPath = tableView.indexPathForSelectedRow
             destination.comment = comments.commentArray[selectedIndexPath!.row]
             destination.pod = pod
+        case "ShowProfile":
+            let destination = segue.destination as! ProfileViewController
+            destination.profile = profile
         default:
             print("Couldn't find a case for segue identifier \(segue.identifier)")
         }

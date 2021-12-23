@@ -322,21 +322,12 @@
                                             <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="24"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
-                                        <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Author Name" borderStyle="roundedRect" placeholder="Name is saved here" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aMC-py-aTB">
-                                            <rect key="frame" x="8" y="43" width="359" height="17"/>
-                                            <color key="backgroundColor" systemColor="secondaryLabelColor"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="17" id="ELu-BF-Erg"/>
-                                            </constraints>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                        </textField>
                                         <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0Vu-BQ-PVx">
-                                            <rect key="frame" x="8" y="236" width="359" height="140"/>
+                                            <rect key="frame" x="8" y="251" width="359" height="118"/>
                                             <color key="backgroundColor" systemColor="secondaryLabelColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="140" id="Zdz-9u-YUK"/>
+                                                <constraint firstAttribute="height" constant="118" id="1ZG-GV-CBf"/>
+                                                <constraint firstAttribute="width" constant="359" id="2Vu-K7-cYf"/>
                                             </constraints>
                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -344,16 +335,16 @@
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zfB-oN-sJT">
-                                            <rect key="frame" x="22" y="175.5" width="331" height="32"/>
+                                            <rect key="frame" x="22" y="187.5" width="331" height="31"/>
                                         </slider>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ldp-Kr-cM1">
-                                            <rect key="frame" x="152" y="216.5" width="71" height="21"/>
+                                            <rect key="frame" x="152" y="225" width="71" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZiK-k9-kxn">
-                                            <rect key="frame" x="146.5" y="98" width="82" height="61.5"/>
+                                            <rect key="frame" x="146.5" y="110" width="82" height="61.5"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain">
                                                 <imageReference key="image" image="play.circle.fill" catalog="system" symbolScale="large"/>
@@ -364,7 +355,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q9G-q1-GU9">
-                                            <rect key="frame" x="236.5" y="113" width="87" height="31"/>
+                                            <rect key="frame" x="236.5" y="125" width="87" height="31"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="filled" title="Play Back">
                                                 <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -375,33 +366,52 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Record, Playback, and Describe your mini pod!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wBT-5i-7ks">
-                                            <rect key="frame" x="37" y="190" width="301" height="17"/>
+                                            <rect key="frame" x="37" y="196.5" width="301" height="19"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JX4-QT-GNK">
+                                            <rect key="frame" x="84" y="48" width="65" height="51"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="plain">
+                                                <imageReference key="image" image="person.fill" catalog="system" symbolScale="large"/>
+                                                <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="31"/>
+                                            </buttonConfiguration>
+                                            <connections>
+                                                <segue destination="6XW-aV-5kW" kind="show" identifier="ShowProfile" id="Cvh-mA-E9v"/>
+                                            </connections>
+                                        </button>
+                                        <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Author Name" borderStyle="roundedRect" placeholder="Name is saved here" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aMC-py-aTB">
+                                            <rect key="frame" x="149" y="56" width="154.5" height="34"/>
+                                            <color key="backgroundColor" systemColor="secondaryLabelColor"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="aMC-py-aTB" firstAttribute="leading" secondItem="cbS-XB-arU" secondAttribute="leading" constant="8" id="0OL-ox-YTI"/>
-                                        <constraint firstItem="ldp-Kr-cM1" firstAttribute="top" secondItem="zfB-oN-sJT" secondAttribute="bottom" constant="10" id="2aa-XV-Qjc"/>
+                                        <constraint firstItem="ZiK-k9-kxn" firstAttribute="top" secondItem="aMC-py-aTB" secondAttribute="bottom" constant="20" id="0n9-Of-UoQ"/>
+                                        <constraint firstItem="JX4-QT-GNK" firstAttribute="leading" secondItem="cbS-XB-arU" secondAttribute="leading" constant="84" id="0qR-z1-CqN"/>
+                                        <constraint firstItem="ldp-Kr-cM1" firstAttribute="top" secondItem="zfB-oN-sJT" secondAttribute="bottom" constant="7.5" id="2aa-XV-Qjc"/>
+                                        <constraint firstItem="aMC-py-aTB" firstAttribute="top" secondItem="Id4-6g-LjW" secondAttribute="bottom" constant="15" id="6l2-zP-4mx"/>
                                         <constraint firstItem="q9G-q1-GU9" firstAttribute="leading" secondItem="ZiK-k9-kxn" secondAttribute="trailing" constant="8" id="BKm-je-uhx"/>
-                                        <constraint firstAttribute="trailing" secondItem="aMC-py-aTB" secondAttribute="trailing" constant="8" id="Czm-SF-1tJ"/>
+                                        <constraint firstItem="0Vu-BQ-PVx" firstAttribute="centerX" secondItem="cbS-XB-arU" secondAttribute="centerX" id="COU-yM-ZNd"/>
                                         <constraint firstItem="ldp-Kr-cM1" firstAttribute="centerX" secondItem="cbS-XB-arU" secondAttribute="centerX" id="Jbs-Kz-1d1"/>
-                                        <constraint firstAttribute="trailing" secondItem="0Vu-BQ-PVx" secondAttribute="trailing" constant="8" id="KVV-ay-mIf"/>
                                         <constraint firstItem="wBT-5i-7ks" firstAttribute="centerX" secondItem="cbS-XB-arU" secondAttribute="centerX" id="LdA-qv-gbv"/>
                                         <constraint firstItem="Id4-6g-LjW" firstAttribute="top" secondItem="cbS-XB-arU" secondAttribute="top" constant="8" id="OF1-qc-c0O"/>
-                                        <constraint firstItem="ZiK-k9-kxn" firstAttribute="top" secondItem="aMC-py-aTB" secondAttribute="bottom" constant="38" id="R6D-2e-dQk"/>
-                                        <constraint firstItem="wBT-5i-7ks" firstAttribute="top" secondItem="ZiK-k9-kxn" secondAttribute="bottom" constant="30.5" id="SaP-kf-nxP"/>
+                                        <constraint firstItem="wBT-5i-7ks" firstAttribute="top" secondItem="ZiK-k9-kxn" secondAttribute="bottom" constant="25" id="SaP-kf-nxP"/>
+                                        <constraint firstItem="0Vu-BQ-PVx" firstAttribute="top" secondItem="ldp-Kr-cM1" secondAttribute="bottom" constant="5" id="fMi-q9-rbq"/>
                                         <constraint firstAttribute="trailing" secondItem="zfB-oN-sJT" secondAttribute="trailing" constant="24" id="g5u-hD-EJB"/>
-                                        <constraint firstAttribute="bottom" secondItem="0Vu-BQ-PVx" secondAttribute="bottom" constant="4" id="gZd-zc-fyK"/>
                                         <constraint firstItem="Id4-6g-LjW" firstAttribute="leading" secondItem="cbS-XB-arU" secondAttribute="leading" constant="8" id="h39-ET-9ez"/>
                                         <constraint firstAttribute="trailing" secondItem="Id4-6g-LjW" secondAttribute="trailing" constant="8" id="iAZ-TR-JXD"/>
                                         <constraint firstItem="ldp-Kr-cM1" firstAttribute="top" secondItem="wBT-5i-7ks" secondAttribute="bottom" constant="9.5" id="k1M-Je-heJ"/>
-                                        <constraint firstItem="0Vu-BQ-PVx" firstAttribute="leading" secondItem="cbS-XB-arU" secondAttribute="leading" constant="8" id="kYQ-Cg-EGf"/>
                                         <constraint firstItem="zfB-oN-sJT" firstAttribute="top" secondItem="q9G-q1-GU9" secondAttribute="bottom" constant="31.5" id="kum-SU-ccZ"/>
+                                        <constraint firstItem="aMC-py-aTB" firstAttribute="leading" secondItem="JX4-QT-GNK" secondAttribute="trailing" id="n3s-GO-zX0"/>
                                         <constraint firstItem="zfB-oN-sJT" firstAttribute="leading" secondItem="cbS-XB-arU" secondAttribute="leading" constant="24" id="ni9-J3-4Aa"/>
-                                        <constraint firstItem="aMC-py-aTB" firstAttribute="top" secondItem="Id4-6g-LjW" secondAttribute="bottom" constant="2" id="oxM-P9-koz"/>
+                                        <constraint firstItem="JX4-QT-GNK" firstAttribute="top" secondItem="Id4-6g-LjW" secondAttribute="bottom" constant="7" id="qGE-In-l5Y"/>
                                         <constraint firstAttribute="height" constant="380" id="qVt-hL-2L4"/>
                                         <constraint firstItem="zfB-oN-sJT" firstAttribute="top" secondItem="ZiK-k9-kxn" secondAttribute="bottom" constant="16" id="w10-xg-i6P"/>
                                         <constraint firstItem="ZiK-k9-kxn" firstAttribute="centerX" secondItem="cbS-XB-arU" secondAttribute="centerX" id="xhZ-H6-Jfp"/>
@@ -761,6 +771,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="aLA-U4-Wzu"/>
         <segue reference="Q8Z-eu-Whs"/>
+        <segue reference="Cvh-mA-E9v"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="person" catalog="system" width="128" height="117"/>

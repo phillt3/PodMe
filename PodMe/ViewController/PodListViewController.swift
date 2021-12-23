@@ -45,6 +45,7 @@ class PodListViewController: UIViewController {
             let destination = segue.destination as! PodDetailViewController
             let selectedIndexPath = tableView.indexPathForSelectedRow
             destination.pod = pods.podArray[selectedIndexPath!.row]
+            destination.profile = profiles.profileDict[pods.podArray[selectedIndexPath!.row].postingUserID]
         } else if segue.identifier == "EditProfile" {
             guard let userID = Auth.auth().currentUser?.uid else {
                 print("ERROR: Could not view profile because we don't have a valid postingUserID.")
