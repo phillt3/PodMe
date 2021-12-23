@@ -21,6 +21,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     @IBOutlet weak var testButton: UIButton!
     @IBOutlet weak var uploadGuideLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var profileButton: UIButton!
     
     
     var pod: Pod!
@@ -39,6 +40,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     
     var comments: Comments!
     var profile: Profile!
+    var profiles: Profiles!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +78,8 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
             testButton.isEnabled = false
             timeSlider.isHidden = true
             timeSlider.isEnabled = false
+            profileButton.isHidden = true
+            profileButton.isEnabled = false
         } else {
             //self.pod.loadAudio()
             disableTextEditing()
@@ -91,6 +95,8 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
             uploading = false
         }
         comments = Comments()
+        profiles = Profiles()
+        profiles.loadData {}
         updateUserInterface()
         
     }
@@ -142,6 +148,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
             let selectedIndexPath = tableView.indexPathForSelectedRow
             destination.comment = comments.commentArray[selectedIndexPath!.row]
             destination.pod = pod
+            destination.profile = profiles.profileDict[comments.commentArray[selectedIndexPath!.row].commentingUserID]
         case "ShowProfile":
             let destination = segue.destination as! ProfileViewController
             destination.profile = profile

@@ -530,6 +530,7 @@
                         <outlet property="descriptionTextField" destination="0Vu-BQ-PVx" id="DPj-AC-M7r"/>
                         <outlet property="lengthLabel" destination="ldp-Kr-cM1" id="RxP-5z-oIl"/>
                         <outlet property="playbutton" destination="ZiK-k9-kxn" id="j5o-0L-5Vc"/>
+                        <outlet property="profileButton" destination="JX4-QT-GNK" id="p9v-8l-o3W"/>
                         <outlet property="saveBarButton" destination="TnG-HF-biC" id="WvK-VX-MWP"/>
                         <outlet property="tableView" destination="S2h-Cf-kHo" id="uik-at-ya6"/>
                         <outlet property="testButton" destination="q9G-q1-GU9" id="ViA-VO-WPM"/>
@@ -627,11 +628,23 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pbT-QP-NdH">
+                                <rect key="frame" x="147" y="535.5" width="81.5" height="66.5"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="person.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="44"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <segue destination="6XW-aV-5kW" kind="show" identifier="ShowProfileFromComments" id="2FR-Ax-pEt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="35O-3w-jVF"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="7RF-tO-6RL" firstAttribute="centerX" secondItem="fHC-0c-5BL" secondAttribute="centerX" id="3hA-1n-3BI"/>
+                            <constraint firstItem="pbT-QP-NdH" firstAttribute="centerX" secondItem="fHC-0c-5BL" secondAttribute="centerX" id="4II-Sj-wBM"/>
                             <constraint firstItem="caB-aZ-qgd" firstAttribute="top" secondItem="iV9-vb-9Et" secondAttribute="bottom" constant="18" id="6Kl-ND-sSN"/>
                             <constraint firstItem="iV9-vb-9Et" firstAttribute="centerX" secondItem="fHC-0c-5BL" secondAttribute="centerX" id="CTh-A2-B5z"/>
                             <constraint firstItem="kHW-Jc-BSo" firstAttribute="centerX" secondItem="fHC-0c-5BL" secondAttribute="centerX" id="Cw4-nm-XLn"/>
@@ -643,6 +656,7 @@
                             <constraint firstItem="kHW-Jc-BSo" firstAttribute="top" secondItem="7RF-tO-6RL" secondAttribute="bottom" constant="9" id="cgc-oz-u6Q"/>
                             <constraint firstItem="Yeu-M4-xzA" firstAttribute="centerX" secondItem="fHC-0c-5BL" secondAttribute="centerX" id="hwf-RH-31r"/>
                             <constraint firstItem="1XF-fT-zL7" firstAttribute="centerY" secondItem="7RF-tO-6RL" secondAttribute="centerY" id="jeY-rT-Zhd"/>
+                            <constraint firstItem="35O-3w-jVF" firstAttribute="bottom" secondItem="pbT-QP-NdH" secondAttribute="bottom" constant="65" id="knE-I5-gc4"/>
                             <constraint firstItem="1XF-fT-zL7" firstAttribute="leading" secondItem="7RF-tO-6RL" secondAttribute="trailing" constant="5" id="q7c-0d-uBN"/>
                             <constraint firstItem="iV9-vb-9Et" firstAttribute="top" secondItem="7RF-tO-6RL" secondAttribute="bottom" constant="9" id="vwj-CG-Uwy"/>
                             <constraint firstItem="caB-aZ-qgd" firstAttribute="top" secondItem="kHW-Jc-BSo" secondAttribute="bottom" constant="18" id="zjw-EW-kgm"/>
@@ -671,6 +685,7 @@
                         <outlet property="commentPlayButton" destination="7RF-tO-6RL" id="05T-ze-pDu"/>
                         <outlet property="commentSlider" destination="kHW-Jc-BSo" id="O55-Cj-KuC"/>
                         <outlet property="commentTitleField" destination="Yeu-M4-xzA" id="YFn-B6-wB2"/>
+                        <outlet property="profileButton" destination="pbT-QP-NdH" id="M9Y-Rk-Slw"/>
                         <outlet property="saveBarButton" destination="n8b-f3-Iju" id="chf-hr-pKD"/>
                         <outlet property="testButton" destination="1XF-fT-zL7" id="xdo-ru-5Dx"/>
                     </connections>
@@ -771,7 +786,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="aLA-U4-Wzu"/>
         <segue reference="Q8Z-eu-Whs"/>
-        <segue reference="Cvh-mA-E9v"/>
+        <segue reference="2FR-Ax-pEt"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="person" catalog="system" width="128" height="117"/>

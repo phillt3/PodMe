@@ -18,9 +18,11 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     @IBOutlet weak var cancelBarButton: UIBarButtonItem!
     @IBOutlet weak var testButton: UIButton!
     @IBOutlet weak var commentGuideLabel: UILabel!
+    @IBOutlet weak var profileButton: UIButton!
     
     var comment: Comment!
     var pod: Pod!
+    var profile: Profile!
     var uploading = false
     var isPlaying = false
     
@@ -52,6 +54,8 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
             commentSlider.isHidden = true
             commentSlider.isEnabled = false
             uploading = true
+            profileButton.isHidden = true
+            profileButton.isEnabled = false
         } else  {
             //in view mode, disable updates
             commentGuideLabel.isHidden = true
@@ -67,6 +71,17 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
             uploading = false
         }
         updateUserInterface()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        updateFromUserInterface()
+        switch segue.identifier ?? "" {
+        case "ShowProfileFromComments":
+            let destination = segue.destination as! ProfileViewController
+            destination.profile = profile
+        default:
+            print("Couldn't find a case for segue identifier \(segue.identifier)")
+        }
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
