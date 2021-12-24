@@ -80,6 +80,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
             timeSlider.isEnabled = false
             profileButton.isHidden = true
             profileButton.isEnabled = false
+            authorTextField.isHidden = true
         } else {
             //self.pod.loadAudio()
             disableTextEditing()
@@ -152,6 +153,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
         case "ShowProfile":
             let destination = segue.destination as! ProfileViewController
             destination.profile = profile
+            destination.editFlag = false
         default:
             print("Couldn't find a case for segue identifier \(segue.identifier)")
         }

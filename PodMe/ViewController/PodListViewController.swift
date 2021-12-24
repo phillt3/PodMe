@@ -54,6 +54,7 @@ class PodListViewController: UIViewController {
             if let nav = segue.destination as? UINavigationController,
                 let vc = nav.topViewController as? ProfileViewController {
                 vc.profile = profiles.profileDict[userID]
+                vc.editFlag = true
             }
         }
     }
@@ -94,7 +95,7 @@ extension PodListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //this is the height of the cell, if you change it in inspect, must change it here too!!
-        return 60
+        return 80
     }
     
 }

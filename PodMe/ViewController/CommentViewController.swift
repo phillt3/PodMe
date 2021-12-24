@@ -79,6 +79,7 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
         case "ShowProfileFromComments":
             let destination = segue.destination as! ProfileViewController
             destination.profile = profile
+            destination.editFlag = false
         default:
             print("Couldn't find a case for segue identifier \(segue.identifier)")
         }

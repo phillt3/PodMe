@@ -76,6 +76,59 @@ class Profile {
         }
     }
     
+    func saveData(completion: @escaping (Bool) -> ()){
+        let db = Firestore.firestore()
+        let storage = Storage.storage()
+        //convert photo.image
+        guard let photoData = self.profileImage.jpegData(compressionQuality: 1.0) else {
+            print("ERROR: Coudl not convert image to data")
+            return
+        }
+        
+        let uploadMetaData = StorageMetadata()
+        uploadMetaData.contentType = "image/jpeg"
+        
+        let storageRef = storage.reference().child(documentID)
+        
+        let uploadTask = storageRef.putData(photoData, metadata: uploadMetaData) { (metadata, error) in
+            if let error = error {
+                print("ERROR: Upload for ref \(uploadMetaData) failed. \(error.localizedDescription)")
+            }
+        }
+        uploadTask.observe(.success) { (snapshot) in
+            print("Upload to FirebaseStorage was successful!")
+            storageRef.downloadURL { (url, error) in
+                guard error == nil else {
+                    print("ERROR: Couldn't create a download url \(error!.localizedDescription)")
+                    return completion(false)
+                }
+                guard let url = url else {
+                    print("ERROR: Couldn't create a download url and this should not have happened because we've already show there was no error.")
+                    return completion(false)
+                }
+                self.photoURL = "\(url)"
+                
+                let dataToSave: [String : Any] = self.dictionary
+                let ref = db.collection("profiles").document(self.documentID)
+                ref.setData(dataToSave) { (error) in
+                    guard error == nil else {
+                        print("ERROR: updating document \(error!.localizedDescription)")
+                        return completion(false)
+                    }
+                    print("Updated Document: \(self.documentID)")
+                    completion(true)
+                }
+            }
+        }
+        
+        uploadTask.observe(.failure) { (snapshot) in
+            if let error = snapshot.error {
+                print("ERROR: upload task file \(self.documentID) failed with error \(error.localizedDescription)")
+            }
+            completion(false)
+        }
+    }
+    
     func loadImage(completion: @escaping(Bool) -> ()){
         let storage = Storage.storage()
         let storageRef = storage.reference().child(documentID)
