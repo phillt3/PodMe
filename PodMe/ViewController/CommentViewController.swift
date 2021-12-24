@@ -147,6 +147,7 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
         commentAuthorLabel.text = comment.displayName
         commentLengthLabel.text = comment.timeString
         
+        //MARK: This is where changes to cancel button may be
         if comment.commentingUserID == Auth.auth().currentUser?.uid {
             self.navigationItem.leftItemsSupplementBackButton = false
         } else {

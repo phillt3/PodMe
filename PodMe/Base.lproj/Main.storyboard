@@ -167,18 +167,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1DC-9S-6dK">
-                                <rect key="frame" x="125" y="75.5" width="125" height="124"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1DC-9S-6dK">
+                                <rect key="frame" x="112.5" y="77" width="150" height="145.5"/>
                                 <color key="tintColor" name="PrimaryColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="125" id="2fd-jf-E1O"/>
+                                    <constraint firstAttribute="height" constant="150" id="2fd-jf-E1O"/>
                                     <constraint firstAttribute="width" secondItem="1DC-9S-6dK" secondAttribute="height" multiplier="1:1" id="6go-qr-Oq7"/>
                                     <constraint firstAttribute="width" secondItem="1DC-9S-6dK" secondAttribute="height" multiplier="1:1" id="9rP-Jm-0Ap"/>
-                                    <constraint firstAttribute="width" constant="125" id="Xgh-qa-QoM"/>
+                                    <constraint firstAttribute="width" constant="150" id="Xgh-qa-QoM"/>
                                 </constraints>
+                                <imageReference key="image" image="person.crop.circle" catalog="system" symbolScale="small"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gfn-ph-osR">
-                                <rect key="frame" x="107" y="208" width="161" height="31"/>
+                                <rect key="frame" x="107" y="233" width="161" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="Sfj-QW-5ca"/>
                                 </constraints>
@@ -255,7 +256,6 @@
                         <viewLayoutGuide key="safeArea" id="bqW-0Y-R4C"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Uhh-08-n61" firstAttribute="top" secondItem="U6n-wA-qNH" secondAttribute="bottom" constant="10" id="2wq-gZ-rhU"/>
                             <constraint firstItem="JQs-2H-mIf" firstAttribute="leading" secondItem="bqW-0Y-R4C" secondAttribute="leading" constant="16" id="7kq-h0-y30"/>
                             <constraint firstItem="JQs-2H-mIf" firstAttribute="top" secondItem="bqW-0Y-R4C" secondAttribute="top" constant="227" id="9Ld-85-iT4"/>
                             <constraint firstItem="bqW-0Y-R4C" firstAttribute="trailing" secondItem="TbR-nH-kuu" secondAttribute="trailing" constant="16" id="BQx-Iq-n6L"/>
@@ -264,14 +264,15 @@
                             <constraint firstItem="Gfn-ph-osR" firstAttribute="top" secondItem="1DC-9S-6dK" secondAttribute="bottom" constant="8" symbolic="YES" id="QsT-FZ-0Za"/>
                             <constraint firstItem="U6n-wA-qNH" firstAttribute="leading" secondItem="JQs-2H-mIf" secondAttribute="trailing" constant="40" id="VDJ-qY-PUn"/>
                             <constraint firstItem="4Hi-tv-7bF" firstAttribute="top" secondItem="JQs-2H-mIf" secondAttribute="bottom" constant="23" id="Wj7-ji-fPE"/>
+                            <constraint firstItem="Uhh-08-n61" firstAttribute="top" secondItem="U6n-wA-qNH" secondAttribute="bottom" constant="10" id="ZKs-te-ypk"/>
                             <constraint firstItem="1DC-9S-6dK" firstAttribute="centerX" secondItem="tYY-dR-63e" secondAttribute="centerX" id="d1w-Ja-Hat"/>
                             <constraint firstItem="TbR-nH-kuu" firstAttribute="top" secondItem="fnW-Xx-RrP" secondAttribute="bottom" constant="8" symbolic="YES" id="d5R-0C-LBN"/>
                             <constraint firstItem="fnW-Xx-RrP" firstAttribute="top" secondItem="4Hi-tv-7bF" secondAttribute="bottom" constant="28" id="djs-ra-SDj"/>
                             <constraint firstItem="Uhh-08-n61" firstAttribute="leading" secondItem="4Hi-tv-7bF" secondAttribute="trailing" constant="14" id="nTS-Nc-Zzc"/>
                             <constraint firstItem="4Hi-tv-7bF" firstAttribute="leading" secondItem="bqW-0Y-R4C" secondAttribute="leading" constant="16" id="ncU-fS-qu4"/>
                             <constraint firstItem="TbR-nH-kuu" firstAttribute="leading" secondItem="bqW-0Y-R4C" secondAttribute="leading" constant="16" id="oMo-H3-lxi"/>
-                            <constraint firstItem="U6n-wA-qNH" firstAttribute="top" secondItem="Gfn-ph-osR" secondAttribute="bottom" constant="25" id="qdD-Ex-LP4"/>
                             <constraint firstItem="fnW-Xx-RrP" firstAttribute="leading" secondItem="bqW-0Y-R4C" secondAttribute="leading" constant="16" id="rV5-4o-YyG"/>
+                            <constraint firstItem="U6n-wA-qNH" firstAttribute="top" secondItem="Gfn-ph-osR" secondAttribute="bottom" id="zAC-lE-vgB"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="HBt-Sq-NIx">
@@ -375,20 +376,20 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JX4-QT-GNK">
-                                            <rect key="frame" x="84" y="48" width="68.5" height="51"/>
+                                        <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JX4-QT-GNK">
+                                            <rect key="frame" x="84" y="48" width="53.5" height="51"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain">
-                                                <imageReference key="image" image="person.crop.circle" catalog="system" symbolScale="large"/>
-                                                <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="31"/>
+                                                <imageReference key="image" image="person.crop.circle" catalog="system" symbolScale="small"/>
+                                                <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="31" scale="small"/>
                                             </buttonConfiguration>
                                             <connections>
                                                 <segue destination="6XW-aV-5kW" kind="show" identifier="ShowProfile" id="Cvh-mA-E9v"/>
                                             </connections>
                                         </button>
                                         <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Author Name" borderStyle="roundedRect" placeholder="Name is saved here" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aMC-py-aTB">
-                                            <rect key="frame" x="152.5" y="56" width="154.5" height="34"/>
+                                            <rect key="frame" x="137.5" y="56" width="154.5" height="34"/>
                                             <color key="backgroundColor" systemColor="secondaryLabelColor"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -779,7 +780,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="aLA-U4-Wzu"/>
         <segue reference="Q8Z-eu-Whs"/>
-        <segue reference="2FR-Ax-pEt"/>
+        <segue reference="Cvh-mA-E9v"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="person" catalog="system" width="128" height="117"/>

@@ -213,14 +213,14 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
         let identifier = UUID()
         pod.audioFileName = "\(identifier.uuidString).m4a"
         let audioFileURL = getDocumentsDirectory().appendingPathComponent(pod.audioFileName)
-
+        
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
             AVSampleRateKey: 12000,
             AVNumberOfChannelsKey: 1,
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
         ]
-
+        
         do {
             audioRecorder = try AVAudioRecorder(url: audioFileURL, settings: settings)
             audioRecorder.delegate = self
@@ -279,10 +279,10 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
             self.updateFromUserInterface()
             self.pod.saveData { (success) in
                 //TODO: have to test what happens in this situation
-//                self.saveBarButton.title = "done"
-//                self.cancelBarButton.hide()
-//                self.navigationController?.setToolbarHidden(true, animated: true)
-//                self.disableTextEditing()
+                //                self.saveBarButton.title = "done"
+                //                self.cancelBarButton.hide()
+                //                self.navigationController?.setToolbarHidden(true, animated: true)
+                //                self.disableTextEditing()
                 self.disableTextEditing()
                 self.saveBarButton.hide()
                 self.testButton.isHidden = true
@@ -307,7 +307,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
         present(alertController, animated: true, completion: nil)
     }
     
-
+    
     
     
     @IBAction func addCommentButtonPressed(_ sender: UIBarButtonItem) {
@@ -342,7 +342,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
             print("Could not load file.")
         }
     }
-   
+    
     
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         leaveViewController()
@@ -391,7 +391,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
                 } catch {
                     print("Was not able to play audio")
                 }
-
+                
             }
         }
     }

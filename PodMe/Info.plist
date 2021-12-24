@@ -34,5 +34,9 @@
 	</dict>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This app requires a use of your microphone in order to record you pods.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app require saccess to your device&apos;s photo library in order to allow personalized profile images</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires access to your devices camera in order for user to take profile photos</string>
 </dict>
 </plist>
