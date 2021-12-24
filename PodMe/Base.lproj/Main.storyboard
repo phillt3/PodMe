@@ -109,9 +109,10 @@
                         </constraints>
                     </view>
                     <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="LIF-C6-gna"/>
                         <barButtonItem style="plain" id="2jN-MD-5yd">
-                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="2Rx-kv-Svt">
-                                <rect key="frame" x="16" y="10.5" width="343" height="33"/>
+                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="bar" selectedSegmentIndex="0" id="2Rx-kv-Svt">
+                                <rect key="frame" x="18.5" y="10.5" width="338" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="PrimaryColor"/>
                                 <segments>
@@ -557,11 +558,11 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7RF-tO-6RL">
                                 <rect key="frame" x="132.5" y="198" width="110" height="85"/>
+                                <color key="tintColor" name="PrimaryColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain">
                                     <imageReference key="image" image="play.circle.fill" catalog="system" symbolScale="large"/>
                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="60"/>
-                                    <color key="baseForegroundColor" name="PrimaryColor"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="commentPlayButtonPressed:" destination="V1e-qf-nJV" eventType="touchUpInside" id="0hi-oy-DuY"/>
