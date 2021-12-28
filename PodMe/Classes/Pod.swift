@@ -10,7 +10,6 @@ import Firebase
 import AVFoundation
 
 class Pod {
-    //MARK: Pod Class variables which represent data to be utilized and or displayed in app
     var title: String
     var postingUserID: String
     var description: String
@@ -23,12 +22,10 @@ class Pod {
     var timeString: String
     
     var dictionary: [String: Any] {
-        //MARK: Firebase requires that data be saved within a dictionary
         return ["title": title, "postingUserID": postingUserID, "description" : description, "numberOfComments": numberOfComments, "displayName" : displayName, "audioFileName" : audioFileName, "audioURL" : audioURL, "seconds" : seconds, "timeString" : timeString]
     }
     
     init(title: String, postingUserID: String, description: String, numberOfComments: Int, documentID: String, displayName: String, audioFileName: String, audioURL : String, seconds : Int, timeString : String){
-        //MARK: Although never used, this initalizer allows for convenience initializers
         self.title = title
         self.postingUserID = postingUserID
         self.description = description
@@ -42,12 +39,10 @@ class Pod {
     }
     
     convenience init() {
-        //MARK: Conv. intializer solely for an empty Pod
         self.init(title: "", postingUserID: "", description: "", numberOfComments: 0, documentID: "", displayName: "", audioFileName: "", audioURL : "", seconds : 0, timeString : "")
     }
     
     convenience init(dictionary: [String: Any]){
-        //MARK: Conv. initializer to assist in loading data from Firebase
         let title = dictionary["title"] as! String? ?? ""
         let postingUserID = dictionary["postingUserID"] as! String? ?? ""
         let description  = dictionary["description"] as! String? ?? ""
@@ -59,16 +54,18 @@ class Pod {
         let timeString = dictionary["timeString"] as! String? ?? ""
         self.init(title: title, postingUserID: postingUserID, description: description, numberOfComments: numberOfComments, documentID: "", displayName: displayName, audioFileName : audioFileName, audioURL : audioURL, seconds : seconds, timeString : timeString)
     }
-
-    func getDocumentsDirectory() -> URL {
-        //MARK: Function to assist in local audio file procurement
+    
+    func getDirectory() -> URL
+    {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
+        let documentDirectory = paths[0]
+        return documentDirectory
     }
     
     func saveData(completion: @escaping (Bool) -> ()) {
-        //MARK: Function that is essential for proper data organization and upload to Firebase cloud database
         let db = Firestore.firestore()
+        //getDirectory().appendingPathComponent("\(pod.documentID).m4a")
+        //Grab the userID
         guard let postingUserID = Auth.auth().currentUser?.uid else {
             print("ERROR: Could not save data because we don't have a valid postingUserID.")
             return completion(false)
@@ -105,7 +102,6 @@ class Pod {
     }
     
     func saveAudio() {
-        //MARK: Specialized function for saving audio files to Firestore storage
         let storage = Storage.storage()
         let storageRef = storage.reference()
         let audioFile = getDocumentsDirectory().appendingPathComponent(audioFileName)
@@ -131,7 +127,6 @@ class Pod {
     }
     
     func loadAudio(completion: @escaping (Bool) -> ()){
-        //MARK: Specialized function for loading audio files from Firestore and storing them to document directory
         let storage = Storage.storage()
         let storageRef = storage.reference().child(documentID)
         let localURL = getDocumentsDirectory().appendingPathComponent(audioFileName)
@@ -152,6 +147,10 @@ class Pod {
             }
         }
     }
-
+  
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
 }
   

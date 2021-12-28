@@ -8,7 +8,6 @@
 import UIKit
 import SDWebImage
 class ProfileViewController: UIViewController {
-    //MARK: IBOUTLETS
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var changePhotoButton: UIButton!
     @IBOutlet weak var nameTextField: UITextField!
@@ -16,7 +15,6 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var aboutTextField: UITextView!
     @IBOutlet weak var saveBarButton: UIBarButtonItem!
     
-    //MARK: Class wide variables
     var profile: Profile!
     var editFlag: Bool!
     var photoFlag: Bool = false
@@ -24,13 +22,6 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //MARK: allows the user to close out keyboard by tapping away from it
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
-        tap.cancelsTouchesInView = false
-        self.view.addGestureRecognizer(tap)
-        
-        //MARK: setup up image picker contorller for camera and photo library functionality and then see if user is viewing a profile or editing a profile and perform necessary UI actions
         imagePickerController.delegate = self
         
         if profile == nil {
@@ -49,7 +40,6 @@ class ProfileViewController: UIViewController {
     }
     
     func cameraOrLibraryAlert() {
-        //MARK: function that gives user choice between camera or photolibrary when choosing a new profile image
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .default){ (_) in
             self.accessPhotoLibrary()        }
@@ -67,14 +57,12 @@ class ProfileViewController: UIViewController {
     }
     
     func updateFromUserInterface() {
-        //MARK: Update profile with inputted UI data
         profile.pronouns = pronounsTextField.text ?? ""
         profile.about = aboutTextField.text ?? ""
         profile.profileImage = imageView.image!
     }
     
     func updateUserInterface() {
-        //MARK: Update UI with given profile data, including loading the profile image using SD web image
         nameTextField.text = profile.displayName
         pronounsTextField.text = profile.pronouns
         aboutTextField.text = profile.about
@@ -98,7 +86,6 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
-        //MARK: allow user to leave view controller when button pressed
         let isPresentingInAddMode = presentingViewController is UINavigationController
         if isPresentingInAddMode {
             dismiss(animated: true, completion: nil)
@@ -108,7 +95,6 @@ class ProfileViewController: UIViewController {
     }
     
     func leaveViewController() {
-        //MARK: the same as cancelButtonPressed but can be used in other functions
         let isPresentingInAddMode = presentingViewController is UINavigationController
         if isPresentingInAddMode {
             dismiss(animated: true, completion: nil)
@@ -118,14 +104,12 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func changePhotoButtonPressed(_ sender: UIButton) {
-        //MARK: Start procedures to allow image capture or selection and then update profile with image
         cameraOrLibraryAlert()
         updateUserInterface()
     }
     
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
-        //MARK: perform all necessary updates to profile to save to FIrebase
         updateFromUserInterface()
         profile.saveData { (success) in
             if success {
@@ -138,7 +122,6 @@ class ProfileViewController: UIViewController {
 }
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-    //MARK: necessary extention to allow image picker functionality
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage{
             imageView.image = editedImage

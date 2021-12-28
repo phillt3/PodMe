@@ -9,9 +9,6 @@ import UIKit
 import Firebase
 import AVFoundation
 class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
-    //MARK: Note this view controller is very similar in functionality to PodDetail just with less UI to update from and no comment tableview to manage
-    
-    //MARK: IBOUTLETS
     @IBOutlet weak var commentTitleField: UITextField!
     @IBOutlet weak var commentAuthorLabel: UILabel!
     @IBOutlet weak var commentPlayButton: UIButton!
@@ -23,7 +20,6 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     @IBOutlet weak var commentGuideLabel: UILabel!
     @IBOutlet weak var profileButton: UIButton!
     
-    //MARK: Class wide variables
     var comment: Comment!
     var pod: Pod!
     var profile: Profile!
@@ -42,8 +38,6 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //MARK: Hiding save button and allowing user to tap away from keyboard
-        //TODO: There is still minor issue with back bar button item appearing instead of cancel
         saveBarButton.isEnabled = false
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
@@ -53,7 +47,6 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
             print("ERROR: No pod passed to CommentViewController")
             return
         }
-        //MARK: Based on if comment catch is empty, user is either uploading or is listening to a posted comment
         if comment == nil {
             comment = Comment()
             testButton.alpha = 0.5
@@ -81,7 +74,6 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //MARK: prepare fro segue mainly used for passing commenter's profile data
         updateFromUserInterface()
         switch segue.identifier ?? "" {
         case "ShowProfileFromComments":
@@ -94,20 +86,17 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        //MARK: function that can detect is audio player has finished playing so that it can then update UI and stop counter
         commentPlayButton.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
         playBackCounter(start: false)
     }
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        //MARK: function that can detect if audio recording has stopped so that it can call subsequent functions
         if !flag {
             finishRecording(success: false)
         }
     }
     
     @objc func playBackTimerCounter() -> Void {
-        //MARK: function used in playBackCounter to check couunter and update timer UI
         tempCount = tempCount + 1
         if tempCount == comment.seconds{
             playBackTimer.invalidate()
@@ -119,7 +108,6 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     }
     
     func playBackCounter(start : Bool){
-        //MARK: function used for resetting and starting timer
         if start == true {
             commentLengthLabel.text = makeTimeString(hours: 0, minutes: 0, seconds: 0)
             playBackTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(playBackTimerCounter), userInfo: nil, repeats: true)
@@ -129,12 +117,10 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     }
     
     func secondsToHoursMinutesSeconds(seconds: Int) -> (Int, Int, Int) {
-        //MARK: function for making conversions from seconds to hours_mins_seconds value
         return (seconds / 3600, seconds % 3600 / 60, ((seconds % 3600) % 60))
     }
     
     @objc func timerCounter() -> Void {
-        //MARK: with each timer tick this function updates counter and UI
         count = count + 1
         let time = secondsToHoursMinutesSeconds(seconds: count)
         let timeString = makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
@@ -142,7 +128,6 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     }
     
     func makeTimeString(hours: Int, minutes: Int, seconds : Int) -> String {
-        //MARK: function for formatting time string to be displayed
         var timeString = ""
         timeString += String(format : "%02d", hours)
         timeString += " : "
@@ -153,18 +138,16 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     }
     
     func getDocumentsDirectory() -> URL {
-        //MARK: helper function for returning URL of available location in document directory
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
     }
     
     func updateUserInterface() {
-        //MARK: updates user interface with appropriate comment data
         commentTitleField.text = comment.commentTitle
         commentAuthorLabel.text = comment.displayName
         commentLengthLabel.text = comment.timeString
         
-        //TODO: This is where changes to cancel/back button may be
+        //MARK: This is where changes to cancel button may be
         if comment.commentingUserID == Auth.auth().currentUser?.uid {
             self.navigationItem.leftItemsSupplementBackButton = false
         } else {
@@ -173,13 +156,11 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     }
     
     func updateFromUserInterface() {
-        //MARK: extracting appropriate data from UI to be saved in comment document
         comment.commentTitle = commentTitleField.text!
         comment.timeString = commentLengthLabel.text!
     }
     
     func leaveViewController() {
-        //MARK: function that performs closing actions and checks if user leaves view controller
         let isPresentingInAddMode = presentingViewController is UINavigationController
         if isPresentingInAddMode {
             dismiss(animated: true, completion: nil)
@@ -192,7 +173,6 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     }
     
     func startRecording() {
-        //MARK: function that sets up audio file and begins recording of audio to be stored at audio file location
         testButton.alpha = 0.5
         testButton.isEnabled = false
         let identifier = UUID()
@@ -201,7 +181,7 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
 
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-            AVSampleRateKey: 44100,
+            AVSampleRateKey: 12000,
             AVNumberOfChannelsKey: 1,
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
         ]
@@ -221,7 +201,6 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     }
     
     func finishRecording(success: Bool) {
-        //MARK: performs closing audiorecorder, timer, comment, and UI updates after audiorecorder finished
         audioRecorder.stop()
         audioRecorder = nil
         timer.invalidate()
@@ -243,24 +222,22 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     }
     
     @IBAction func testButtonPressed(_ sender: UIButton) {
-        //MARK: function that allows playback of comment after audio is recorded
         let path = getDocumentsDirectory().appendingPathComponent(comment.audioFileName)
+        //let url = URL(fileURLWithPath: path)
         do {
             AudioPlayer = try AVAudioPlayer(contentsOf: path)
             AudioPlayer?.play()
-            AudioPlayer?.setVolume(100.0, fadeDuration: 0.0)
         } catch {
+            // couldn't load file :(
             print("Could not load file.")
         }
     }
     
     @IBAction func commentCancelButtonPressed(_ sender: UIBarButtonItem) {
-        //MARK: function that allows user to leave current view controller
         leaveViewController()
     }
     
     @IBAction func commentSaveButtonPressed(_ sender: UIBarButtonItem) {
-        //MARK: perform all necessary updates and save implementations to store comment data to firebase
         updateFromUserInterface()
         comment.saveData(pod: pod) { success in
             if success {
@@ -274,8 +251,6 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     
     
     @IBAction func commentTitleChanged(_ sender: UITextField) {
-        //MARK: function used in checking if comment title was edited
-        //TODO: May be smart to implement this in main pod upload as well
         let noSpaces = commentTitleField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         if noSpaces != "" {
             saveBarButton.isEnabled = true
@@ -285,7 +260,6 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     }
     
     @IBAction func commentPlayButtonPressed(_ sender: UIButton) {
-        //MARK: primary function of view controller allowing user to start recording, stop recording, play recording, stop playing recording all based on if the user is uploading a Comment or viewing another user's comment
         if uploading {
             if audioRecorder == nil {
                 print("RECORDING")
@@ -325,7 +299,6 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
                     }
                     AudioPlayer.delegate = self
                     AudioPlayer.play()
-                    AudioPlayer.setVolume(100.0, fadeDuration: 0.0)
                 } catch {
                     print("Was not able to play audio")
                 }

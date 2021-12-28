@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class Profile {
-    //MARK: Profile Class variables which represent data to be utilized and or displayed in app
+    
     var email: String
     var displayName: String
     var userID: String
@@ -21,12 +21,10 @@ class Profile {
     var documentID: String
     
     var dictionary: [String: Any] {
-        //MARK: Firebase requires that data be saved within a dictionary
         return ["email": email, "displayName": displayName, "userID": userID, "photoURL": photoURL, "pronouns": pronouns, "about": about]
     }
     
     init(email: String, displayName: String, userID: String, photoURL: String, profileImage: UIImage, pronouns: String, about: String, documentID: String) {
-        //MARK: Although never used, this initalizer allows for convenience initializers
         self.email = email
         self.displayName = displayName
         self.userID = userID
@@ -38,7 +36,6 @@ class Profile {
     }
     
     convenience init(user: User){
-        //MARK: Conv. intializer solely for an empty Comment
         let userID = user.uid
         let email = user.email ?? "unknown email"
         let displayName = user.displayName ?? ""
@@ -46,7 +43,6 @@ class Profile {
     }
     
     convenience init(dictionary: [String: Any]){
-        //MARK: Conv. initializer to assist in loading data from Firebase
         let email = dictionary["email"] as! String? ?? ""
         let displayName = dictionary["displayName"] as! String? ?? ""
         let userID = dictionary["userID"] as! String? ?? ""
@@ -57,8 +53,6 @@ class Profile {
     }
     
     func saveIfNewUser(completion: @escaping (Bool) -> ()) {
-        //MARK: Function used in login view controller to automatically create a profile document if the user is new
-        //That document is automatically saved to Firebase profile collection
         let db = Firestore.firestore()
         let profileRef = db.collection("profiles").document(documentID)
         profileRef.getDocument { (document, error) in
@@ -83,11 +77,10 @@ class Profile {
     }
     
     func saveData(completion: @escaping (Bool) -> ()){
-        //MARK: Function that is essential for proper data organization and upload to Firebase cloud database
         let db = Firestore.firestore()
         let storage = Storage.storage()
         //convert photo.image
-        guard let photoData = self.profileImage.jpegData(compressionQuality: 0.5) else {
+        guard let photoData = self.profileImage.jpegData(compressionQuality: 1.0) else {
             print("ERROR: Coudl not convert image to data")
             return
         }
@@ -137,8 +130,6 @@ class Profile {
     }
     
     func loadImage(completion: @escaping(Bool) -> ()){
-        //MARK: Specialized function allowing for loading of images from Firebase
-        //However the app is also setup at the moment to use SD webkit to load images by URL
         let storage = Storage.storage()
         let storageRef = storage.reference().child(documentID)
         storageRef.getData(maxSize: 25 * 1024 * 1024) { (data, error) in

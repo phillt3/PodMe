@@ -9,17 +9,14 @@ import Foundation
 import Firebase
 
 class Comments {
-    //MARK: Class wide Comments variables used in connecting to Firestore and setting load data to array of Comment type
     var commentArray: [Comment] = []
     var db: Firestore!
     
     init() {
-        //MARK: initializing instance of Firestore object to allow for data download
         db = Firestore.firestore()
     }
     
     func loadData(pod: Pod, completed: @escaping () -> ()){
-        //MARK: Essential function for loading Comment data from Firebase cloud database
         guard pod.documentID != "" else {
             return
         }
