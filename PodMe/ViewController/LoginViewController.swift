@@ -9,11 +9,13 @@ import UIKit
 // Note: was previously import FirebaseUI, Google replaced in latest SDK with two lines below.
 import FirebaseAuthUI
 import FirebaseGoogleAuthUI
+import FirebaseOAuthUI
+
 
 class LoginViewController: UIViewController {
     
     var authUI: FUIAuth!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,12 +28,12 @@ class LoginViewController: UIViewController {
         super.viewDidAppear(animated)
         signIn()
     }
-
+    
     func signIn() {
         // note FUIGoogleAuth line was previously: FUIGoogleAuth(), Google changed to line below in latest update
+        
         let providers: [FUIAuthProvider] = [
-          FUIGoogleAuth(authUI: authUI!),
-        ]
+            FUIGoogleAuth(authUI: authUI!), FUIOAuth.appleAuthProvider()]
         if authUI.auth?.currentUser == nil { // user has not signed in
             self.authUI.providers = providers // show providers named after let providers: above
             let loginViewController = authUI.authViewController()
@@ -43,6 +45,7 @@ class LoginViewController: UIViewController {
                 return
             }
             let podUser = Profile(user: currentUser)
+            print("WE GET HERE")
             podUser.saveIfNewUser { (success) in
                 if success {
                     self.performSegue(withIdentifier: "FirstShowSegue", sender: nil)
@@ -68,9 +71,48 @@ class LoginViewController: UIViewController {
             signOut()
         }
     }
+//    func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?) {
+//        if let user = authDataResult?.user {
+//            print("Signed in as \(user.uid).")
+//        }
+//        guard let currentUser = authUI.auth?.currentUser else {
+//            print("ERROR: Could not get currentUser")
+//            return
+//        }
+//        let podUser = Profile(user: currentUser)
+//        print("WE GET HERE")
+//        podUser.saveIfNewUser { (success) in
+//            if success {
+//                self.performSegue(withIdentifier: "FirstShowSegue", sender: nil)
+//            } else {
+//                print("ERROR: Tried to save a new pod user but failed.")
+//            }
+//        }
+//        self.performSegue(withIdentifier: "FirstShowSegue", sender: nil)
+//    }
 }
 
+
 extension LoginViewController: FUIAuthDelegate {
+    func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?) {
+        if let user = authDataResult?.user {
+            print("Signed in as \(user.uid).")
+        }
+        guard let currentUser = authUI.auth?.currentUser else {
+            print("ERROR: Could not get currentUser")
+            return
+        }
+        let podUser = Profile(user: currentUser)
+        print("WE GET HERE")
+        podUser.saveIfNewUser { (success) in
+            if success {
+                self.performSegue(withIdentifier: "FirstShowSegue", sender: nil)
+            } else {
+                print("ERROR: Tried to save a new pod user but failed.")
+            }
+        }
+        self.performSegue(withIdentifier: "FirstShowSegue", sender: nil)
+    }
     func authPickerViewController(forAuthUI authUI: FUIAuth) -> FUIAuthPickerViewController {
         let marginInsets: CGFloat = 16.0 // amount to indent UIImageView on each side
         let topSafeArea = self.view.safeAreaInsets.top
@@ -79,7 +121,7 @@ extension LoginViewController: FUIAuthDelegate {
         let loginViewController = FUIAuthPickerViewController(authUI: authUI)
         
         // Set background color to white
-        loginViewController.view.backgroundColor = UIColor(named: "PrimaryColor")
+        loginViewController.view.backgroundColor = UIColor(named: "Otherpurplecolor")
         loginViewController.view.subviews[0].backgroundColor = UIColor.clear
         loginViewController.view.subviews[0].subviews[0].backgroundColor = UIColor.clear
         
@@ -94,7 +136,9 @@ extension LoginViewController: FUIAuthDelegate {
         
         // Create the UIImageView using the frame created above & add the "logo" image
         let logoImageView = UIImageView(frame: logoFrame)
-        logoImageView.image = UIImage(named: "logo")
+        //logoImageView.image = UIImage(named: "logo")
+        logoImageView.image = UIImage(systemName: "mic.circle")
+        logoImageView.tintColor = UIColor(named: "PrimaryColor")
         logoImageView.contentMode = .scaleAspectFit // Set imageView to Aspect Fit
         loginViewController.view.addSubview(logoImageView) // Add ImageView to the login controller's main view
         return loginViewController

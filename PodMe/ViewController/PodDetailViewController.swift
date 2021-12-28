@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 
 class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDelegate{
-    
+    //MARK: IBOUTLETS for PodDetailViewController
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var authorTextField: UITextField!
     @IBOutlet weak var lengthLabel: UILabel!
@@ -23,7 +23,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var profileButton: UIButton!
     
-    
+    //MARK: Class wide variables
     var pod: Pod!
     var uploading = false
     var isPlaying = false
@@ -47,12 +47,14 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
         tableView.delegate = self
         tableView.dataSource = self
         
+        //MARK: Allowing user to tap away from keyboard
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
-        
+        //MARK: Creating audio session for audio recording
         recordingSession = AVAudioSession.sharedInstance()
         do {
+            //MARK: Settiung up recording session and asking for user permission to use mic
             try recordingSession.setCategory(.playAndRecord, mode: .default)
             try recordingSession.setActive(true)
             recordingSession.requestRecordPermission() { [unowned self] allowed in
@@ -68,6 +70,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
             oneButtonAlert(title: "Error", message: "Please try again!")
         }
         
+        //MARK: Setting up UI based on if Pod catcher is empty (user is uploading) or Pod is not nil (user is viewing pod)
         playbutton.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
         playbutton.tintColor = UIColor(named: "PrimaryColor")
         
@@ -103,6 +106,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        //MARK: Once main pod has appeared, load in comment pods
         super.viewWillAppear(animated)
         comments.loadData(pod: pod) {
             print("This runs")
@@ -112,6 +116,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     }
     
     func updateUserInterface() {
+        //MARK: Updating UI with all relevant Pod data
         titleTextField.text = pod.title
         authorTextField.text = pod.displayName
         descriptionTextField.text = pod.description
@@ -119,6 +124,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     }
     
     func updateFromUserInterface() {
+        //MARK: Updating current pod with added data from fields if being uploaded
         pod.title = titleTextField.text!
         pod.description = descriptionTextField.text!
         pod.timeString = lengthLabel.text!
@@ -126,6 +132,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     }
     
     func leaveViewController() {
+        //MARK: Closing actions that must be settled if user leaves current view controller
         let isPresentingInAddMode = presentingViewController is UINavigationController
         if isPresentingInAddMode {
             dismiss(animated: true, completion: nil)
@@ -138,6 +145,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //MARK: Passing relevant data depending on the segue that is being performed
         updateFromUserInterface()
         switch segue.identifier ?? "" {
         case "AddComment":
@@ -160,6 +168,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     }
     
     func disableTextEditing(){
+        //MARK: Function containing all actions to disable text editing although there are many manual occurences of this that can be cleaned up in a similar fashion
         titleTextField.isEnabled = false
         descriptionTextField.isEditable = false
         
@@ -167,6 +176,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     
     
     @objc func timerCounter() -> Void {
+        //MARK: function tied to timer to collect number of sections and perform UI updates
         count = count + 1
         let time = secondsToHoursMinutesSeconds(seconds: count)
         let timeString = makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
@@ -174,6 +184,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     }
     
     @objc func playBackTimerCounter() -> Void {
+        //MARK: Separate function tied to timer for resetting and updating UI when user plays back audio
         tempCount = tempCount + 1
         if tempCount == pod.seconds{
             playBackTimer.invalidate()
@@ -185,6 +196,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     }
     
     func playBackCounter(start : Bool){
+        //MARK: Separate function tied to Counter for resetting and updating UI when user plays back audio
         if start == true {
             lengthLabel.text = makeTimeString(hours: 0, minutes: 0, seconds: 0)
             playBackTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(playBackTimerCounter), userInfo: nil, repeats: true)
@@ -194,10 +206,12 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     }
     
     func secondsToHoursMinutesSeconds(seconds: Int) -> (Int, Int, Int) {
+        //MARK: Converting seconds into hour_min_sec values
         return (seconds / 3600, seconds % 3600 / 60, ((seconds % 3600) % 60))
     }
     
     func makeTimeString(hours: Int, minutes: Int, seconds : Int) -> String {
+        //MARK: Creating string to be used in timer UI
         var timeString = ""
         timeString += String(format : "%02d", hours)
         timeString += " : "
@@ -208,6 +222,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     }
     
     func startRecording() {
+        //MARK: Function that setups audio file and location in memmory. Also begins recording from user mic
         testButton.alpha = 0.5
         testButton.isEnabled = false
         let identifier = UUID()
@@ -216,7 +231,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
         
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-            AVSampleRateKey: 12000,
+            AVSampleRateKey: 44100,
             AVNumberOfChannelsKey: 1,
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
         ]
@@ -236,6 +251,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     }
     
     func finishRecording(success: Bool) {
+        //MARK: function that makes all audioRecord, timer, pod, and UI updates upond audio recording finished
         audioRecorder.stop()
         audioRecorder = nil
         timer.invalidate()
@@ -257,32 +273,31 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     }
     
     func getDocumentsDirectory() -> URL {
+        //MARK: common helper function used in grabbing url path for available location in document directory
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
     }
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        //MARK: function that can detect audio recording being finished and call necessary functions
         if !flag {
             finishRecording(success: false)
         }
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        //MARK: function that can detect when audio playing finishes and make all necessary function calls and UI updates
         playbutton.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
         playBackCounter(start: false)
     }
     
     
     func saveCancelAlert(title: String, message: String, segueIdentifier: String){
+        //MARK: function used for detecting when user tries to add comment before saving pod file
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save", style: .default) { (_) in
             self.updateFromUserInterface()
             self.pod.saveData { (success) in
-                //TODO: have to test what happens in this situation
-                //                self.saveBarButton.title = "done"
-                //                self.cancelBarButton.hide()
-                //                self.navigationController?.setToolbarHidden(true, animated: true)
-                //                self.disableTextEditing()
                 self.disableTextEditing()
                 self.saveBarButton.hide()
                 self.testButton.isHidden = true
@@ -311,6 +326,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     
     
     @IBAction func addCommentButtonPressed(_ sender: UIBarButtonItem) {
+        //MARK: decides action to be takes when comment button is pressed
         if pod.documentID == "" {
             saveCancelAlert(title: "This Pod Has Not Been Saved", message: "You must save this Pod before you leave a comment.", segueIdentifier: "AddComment")
         } else {
@@ -319,6 +335,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     }
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
+        //MARK: performs all actions to save data from UI before leaving view controller
         updateFromUserInterface()
         pod.saveData { (success) in
             if success {
@@ -330,13 +347,14 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     }
     
     @IBAction func testButtonPressed(_ sender: UIButton) {
+        //MARK: Implemments functionality allowing user to play back audio after they have recorded it
         let path = getDocumentsDirectory().appendingPathComponent(pod.audioFileName)
-        //let url = URL(fileURLWithPath: path)
         print(pod.audioFileName)
         print(path)
         do {
             AudioPlayer = try AVAudioPlayer(contentsOf: path)
             AudioPlayer?.play()
+            AudioPlayer?.setVolume(100.0, fadeDuration: 0.0)
         } catch {
             // couldn't load file :(
             print("Could not load file.")
@@ -345,10 +363,12 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     
     
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        //MARK: allows user to leave current view controller
         leaveViewController()
     }
     
     @IBAction func playButtonPressed(_ sender: UIButton) {
+        //MARK: primary function of view controller allowing user to start recording, stop recording, play recording, stop playing recording all based on if the user is uploading a Pod or viewing another user's pod
         if uploading {
             if audioRecorder == nil {
                 print("RECORDING")
@@ -388,6 +408,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
                     }
                     AudioPlayer.delegate = self
                     AudioPlayer.play()
+                    AudioPlayer.setVolume(100.0, fadeDuration: 0.0)
                 } catch {
                     print("Was not able to play audio")
                 }
@@ -398,6 +419,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
 }
 
 extension PodDetailViewController: UITableViewDelegate, UITableViewDataSource {
+    //MARK: necessary extension for table view controller functionality, in this case for comments
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         pod.numberOfComments = comments.commentArray.count
         return comments.commentArray.count
@@ -407,8 +429,6 @@ extension PodDetailViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! PodCommentTableViewCell
         cell.comment = comments.commentArray[indexPath.row]
         cell.pod = pod
-        //update
-        //TODO: deal with custom cell
         return cell
     }
     
