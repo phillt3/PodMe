@@ -367,9 +367,6 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
                 AudioPlayer.stop()
             } else {
                 //set up player, and play
-                playbutton.setImage(UIImage(systemName: "pause.circle.fill"), for: .normal)
-                tempCount = 0
-                playBackCounter(start: true)
                 var path = getDocumentsDirectory().appendingPathComponent(pod.audioFileName)
                 pod.loadAudio { (success) in
                     if success {
@@ -378,20 +375,22 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
                     } else{
                         print("ERROR: could not load audio for \(self.pod.audioURL), using local path")
                     }
-                }
-                do {
-                    try AVAudioSession.sharedInstance().setMode(.default)
-                    try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
-                    AudioPlayer = try AVAudioPlayer(contentsOf: path)
-                    guard let AudioPlayer = AudioPlayer else {
-                        return
+                    do {
+                        try AVAudioSession.sharedInstance().setMode(.default)
+                        try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+                        self.AudioPlayer = try AVAudioPlayer(contentsOf: path)
+                        guard let AudioPlayer = self.AudioPlayer else {
+                            return
+                        }
+                        AudioPlayer.delegate = self
+                        self.playbutton.setImage(UIImage(systemName: "pause.circle.fill"), for: .normal)
+                        self.tempCount = 0
+                        self.playBackCounter(start: true)
+                        AudioPlayer.play()
+                    } catch {
+                        print("Was not able to play audio")
                     }
-                    AudioPlayer.delegate = self
-                    AudioPlayer.play()
-                } catch {
-                    print("Was not able to play audio")
                 }
-                
             }
         }
     }

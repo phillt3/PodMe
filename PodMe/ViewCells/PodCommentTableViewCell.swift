@@ -54,21 +54,19 @@ class PodCommentTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
                 } else{
                     print("ERROR: could not load audio for \(self.comment.audioURL), using local path")
                 }
-            }
-            do {
-                try AVAudioSession.sharedInstance().setMode(.default)
-                try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
-                AudioPlayer = try AVAudioPlayer(contentsOf: path)
-                guard let AudioPlayer = AudioPlayer else {
-                    return
+                do {
+                    try AVAudioSession.sharedInstance().setMode(.default)
+                    try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+                    self.AudioPlayer = try AVAudioPlayer(contentsOf: path)
+                    guard let AudioPlayer = self.AudioPlayer else {
+                        return
+                    }
+                    AudioPlayer.delegate = self
+                    AudioPlayer.play()
+                } catch {
+                    print("Was not able to play audio")
                 }
-                AudioPlayer.delegate = self
-                AudioPlayer.play()
-            } catch {
-                print("Was not able to play audio")
             }
         }
     }
-    
-
 }
