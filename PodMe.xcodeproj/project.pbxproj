@@ -39,6 +39,7 @@
 		A43753352755B40800A8C91A /* Pods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pods.swift; sourceTree = "<group>"; };
 		A4720FB5273C715100BC91A8 /* Pod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pod.swift; sourceTree = "<group>"; };
 		A4720FB7273C7CC900BC91A8 /* UIViewController+alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+alert.swift"; sourceTree = "<group>"; };
+		A48ACD34277BC4FD006AFCFB /* PodMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PodMe.entitlements; sourceTree = "<group>"; };
 		A4B9BD5727598F8500C11C87 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		A4B9BD59275994E800C11C87 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		A4B9BD5B2759983400C11C87 /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
@@ -136,6 +137,7 @@
 		A4DC187E272F6DDF0086DACB /* PodMe */ = {
 			isa = PBXGroup;
 			children = (
+				A48ACD34277BC4FD006AFCFB /* PodMe.entitlements */,
 				A4DC187F272F6DDF0086DACB /* AppDelegate.swift */,
 				A4DC1881272F6DDF0086DACB /* SceneDelegate.swift */,
 				A49723F6275AE4AF0068ACB7 /* Classes */,
@@ -466,6 +468,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PodMe/PodMe.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P4S97U2LLW;
@@ -495,6 +498,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PodMe/PodMe.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P4S97U2LLW;
