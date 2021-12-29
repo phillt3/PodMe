@@ -38,7 +38,7 @@ class Profile {
     convenience init(user: User){
         let userID = user.uid
         let email = user.email ?? "unknown email"
-        let displayName = user.displayName ?? ""
+        let displayName = user.displayName ?? "unknown name"
         self.init(email: email, displayName: displayName, userID: userID, photoURL: "", profileImage: UIImage(), pronouns: "", about: "", documentID: user.uid)
     }
     
@@ -80,7 +80,7 @@ class Profile {
         let db = Firestore.firestore()
         let storage = Storage.storage()
         //convert photo.image
-        guard let photoData = self.profileImage.jpegData(compressionQuality: 1.0) else {
+        guard let photoData = self.profileImage.jpegData(compressionQuality: 0.5) else {
             print("ERROR: Coudl not convert image to data")
             return
         }

@@ -144,7 +144,7 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     
     func updateUserInterface() {
         commentTitleField.text = comment.commentTitle
-        commentAuthorLabel.text = comment.displayName
+        commentAuthorLabel.text = profile.displayName
         commentLengthLabel.text = comment.timeString
         
         //MARK: This is where changes to cancel button may be
@@ -158,6 +158,7 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     func updateFromUserInterface() {
         comment.commentTitle = commentTitleField.text!
         comment.timeString = commentLengthLabel.text!
+        comment.displayName = commentAuthorLabel.text ?? ""
     }
     
     func leaveViewController() {

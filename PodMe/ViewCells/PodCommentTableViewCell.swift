@@ -26,7 +26,6 @@ class PodCommentTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
             lengthLabel.text = comment.timeString
         }
     }
-
     
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)

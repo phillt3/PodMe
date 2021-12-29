@@ -22,5 +22,4 @@ class PodTableViewCell: UITableViewCell {
             lengthLabel.text = pod.timeString
         }
     }
-    
 }

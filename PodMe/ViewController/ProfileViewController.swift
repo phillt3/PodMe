@@ -34,6 +34,7 @@ class ProfileViewController: UIViewController {
             changePhotoButton.isEnabled = false
             pronounsTextField.isEnabled = false
             aboutTextField.isEditable = false
+            nameTextField.isEnabled = false
             saveBarButton.hide()
         }
         updateUserInterface()
@@ -59,6 +60,7 @@ class ProfileViewController: UIViewController {
     func updateFromUserInterface() {
         profile.pronouns = pronounsTextField.text ?? ""
         profile.about = aboutTextField.text ?? ""
+        profile.displayName = nameTextField.text ?? "unknown name"
         profile.profileImage = imageView.image!
     }
     

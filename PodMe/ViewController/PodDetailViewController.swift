@@ -113,12 +113,13 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     
     func updateUserInterface() {
         titleTextField.text = pod.title
-        authorTextField.text = pod.displayName
+        authorTextField.text = profile.displayName
         descriptionTextField.text = pod.description
         lengthLabel.text = pod.timeString
     }
     
     func updateFromUserInterface() {
+        pod.displayName = authorTextField.text ?? "unknown ID"
         pod.title = titleTextField.text!
         pod.description = descriptionTextField.text!
         pod.timeString = lengthLabel.text!
@@ -406,8 +407,6 @@ extension PodDetailViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! PodCommentTableViewCell
         cell.comment = comments.commentArray[indexPath.row]
         cell.pod = pod
-        //update
-        //TODO: deal with custom cell
         return cell
     }
     
