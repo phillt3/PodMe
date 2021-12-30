@@ -38,7 +38,7 @@ class Profile {
     convenience init(user: User){
         let userID = user.uid
         let email = user.email ?? "unknown email"
-        let displayName = user.displayName ?? "unknown name"
+        let displayName = user.displayName ?? ""
         self.init(email: email, displayName: displayName, userID: userID, photoURL: "", profileImage: UIImage(), pronouns: "", about: "", documentID: user.uid)
     }
     

@@ -56,6 +56,8 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
             uploading = true
             profileButton.isHidden = true
             profileButton.isEnabled = false
+            commentAuthorLabel.isHidden = true
+            commentAuthorLabel.isEnabled = false
         } else  {
             //in view mode, disable updates
             commentGuideLabel.isHidden = true
@@ -144,7 +146,9 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     
     func updateUserInterface() {
         commentTitleField.text = comment.commentTitle
-        commentAuthorLabel.text = profile.displayName
+        if profile != nil {
+            commentAuthorLabel.text = profile.displayName
+        }
         commentLengthLabel.text = comment.timeString
         
         //MARK: This is where changes to cancel button may be
@@ -158,7 +162,6 @@ class CommentViewController: UIViewController, AVAudioRecorderDelegate, AVAudioP
     func updateFromUserInterface() {
         comment.commentTitle = commentTitleField.text!
         comment.timeString = commentLengthLabel.text!
-        comment.displayName = commentAuthorLabel.text ?? ""
     }
     
     func leaveViewController() {

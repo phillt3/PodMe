@@ -14,11 +14,11 @@ class PodTableViewCell: UITableViewCell {
     @IBOutlet weak var authorLabel: UILabel!
     
     @IBOutlet weak var lengthLabel: UILabel!
-    
+    var profile: Profile!
     var pod: Pod! {
         didSet {
             titleLabel.text = pod.title
-            authorLabel.text = pod.displayName
+            authorLabel.text = profile.displayName
             lengthLabel.text = pod.timeString
         }
     }

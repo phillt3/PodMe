@@ -54,6 +54,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
         recordingSession = AVAudioSession.sharedInstance()
         do {
             try recordingSession.setCategory(.playAndRecord, mode: .default)
+            try recordingSession.setCategory(.playAndRecord, options: .defaultToSpeaker)
             try recordingSession.setActive(true)
             recordingSession.requestRecordPermission() { [unowned self] allowed in
                 DispatchQueue.main.async {
@@ -81,6 +82,7 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
             profileButton.isHidden = true
             profileButton.isEnabled = false
             authorTextField.isHidden = true
+            authorTextField.isEnabled = false
         } else {
             //self.pod.loadAudio()
             disableTextEditing()
@@ -113,13 +115,14 @@ class PodDetailViewController: UIViewController, AVAudioPlayerDelegate, AVAudioR
     
     func updateUserInterface() {
         titleTextField.text = pod.title
-        authorTextField.text = profile.displayName
+        if profile != nil {
+            authorTextField.text = profile.displayName
+        }
         descriptionTextField.text = pod.description
         lengthLabel.text = pod.timeString
     }
     
     func updateFromUserInterface() {
-        pod.displayName = authorTextField.text ?? "unknown ID"
         pod.title = titleTextField.text!
         pod.description = descriptionTextField.text!
         pod.timeString = lengthLabel.text!
@@ -405,8 +408,9 @@ extension PodDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! PodCommentTableViewCell
-        cell.comment = comments.commentArray[indexPath.row]
+        cell.profile = profiles.profileDict[comments.commentArray[indexPath.row].commentingUserID]
         cell.pod = pod
+        cell.comment = comments.commentArray[indexPath.row]
         return cell
     }
     

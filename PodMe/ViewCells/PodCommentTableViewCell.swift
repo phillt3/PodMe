@@ -19,10 +19,11 @@ class PodCommentTableViewCell: UITableViewCell, AVAudioPlayerDelegate {
     
     var AudioPlayer: AVAudioPlayer?
     var pod: Pod!
+    var profile: Profile!
     var comment: Comment! {
         didSet {
             commentTitleLabel.text = comment.commentTitle
-            authorNameLabel.text = comment.displayName
+            authorNameLabel.text = profile.displayName
             lengthLabel.text = comment.timeString
         }
     }

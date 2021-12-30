@@ -23,6 +23,9 @@ class PodListViewController: UIViewController {
         super.viewDidLoad()
         pods = Pods()
         profiles = Profiles()
+        profiles.loadData {
+            print("Loading Profile Data")
+        }
         tableView.delegate = self
         tableView.dataSource = self
 
@@ -31,10 +34,6 @@ class PodListViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         pods.loadData {
-            self.sortBasedOnSegmentPressed()
-            self.tableView.reloadData()
-        }
-        profiles.loadData {
             self.sortBasedOnSegmentPressed()
             self.tableView.reloadData()
         }
@@ -89,6 +88,7 @@ extension PodListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PodTableViewCell
         //cell.titleLabel?.text = pods.podArray[indexPath.row].title
+        cell.profile = profiles.profileDict[pods.podArray[indexPath.row].postingUserID]
         cell.pod = pods.podArray[indexPath.row]
         return cell
     }
