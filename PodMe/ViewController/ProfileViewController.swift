@@ -24,6 +24,10 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         imagePickerController.delegate = self
         
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+        
         if profile == nil {
             print("ISSUE: Profile should not be nil")
         }
